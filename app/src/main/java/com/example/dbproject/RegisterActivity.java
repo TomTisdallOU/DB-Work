@@ -6,6 +6,9 @@ import android.text.Editable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import java.util.Random;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -31,9 +34,24 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //Check to see if account already exists
-                // If it doesn't add the user to the database
-                // If it does, Toast saying user already exists
+                String usernameValue = username.getText().toString();
+                String passwordValue = password.getText().toString();
+                String emailValue = email.getText().toString();
+
+                if(!usernameValue.equals("") && !passwordValue.equals("") && !emailValue.equals(("")))
+                {
+                    if(userDB.UserExistsInDatabase(usernameValue, passwordValue) == null)
+                    {
+                        int id = new Random().nextInt();
+
+                        User user = new User(id, usernameValue, passwordValue, emailValue, "");
+                        userDB.addUser_Handler(user);
+                    }
+                }
+                else
+                {
+                    Toast.makeText(RegisterActivity.this,"Please fill out all values.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
