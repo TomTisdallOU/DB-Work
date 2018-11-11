@@ -123,4 +123,25 @@ public class UserDBHandler extends SQLiteOpenHelper {
 
     }
 
+    public User UserExistsInDatabase(String username, String password)
+    {
+        String query = "Select * From " + Table_User + " Where " + User_Column_UserName+ " = " +username+ " And " + User_Column_Password + " = " + password;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        User user = new User();
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            user.setUserID(cursor.getInt(0));
+            user.setUserName(cursor.getString(1));
+            user.setUserPassword(cursor.getString(2));
+            user.setUserEmail(cursor.getString(3));
+            user.setUserPhoneNumber(cursor.getString(4));
+            cursor.close();
+        } else{
+            user = null;
+        }
+        db.close();
+        return user;
+    }
+
 }
