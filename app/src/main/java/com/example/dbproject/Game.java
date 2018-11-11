@@ -8,6 +8,13 @@ public class Game {
     private String awayTeam;
     private Date gameDate;
 
+    public Game(){
+        this.gameID = 0;
+        this.homeTeam = "";
+        this.awayTeam = "";
+        this.gameDate = null;
+    }
+
 
     public Game(int gameID, String homeTeam, String awayTeam, Date gameDate) {
         this.gameID = gameID;
