@@ -74,6 +74,7 @@ public class myDBHandler extends SQLiteOpenHelper {
     public Game findHander(int gameID){
         String query = "Select * From " + Table_Game + " Where " + Game_Column_ID + " = " + gameID;
         SQLiteDatabase db = getWritableDatabase();
+        Date date = null;
         Cursor cursor = db.rawQuery(query, null);
         Game game = new Game();
         if (cursor.moveToFirst()) {
@@ -81,7 +82,16 @@ public class myDBHandler extends SQLiteOpenHelper {
             game.setGameID(cursor.getInt(0));
             game.setHomeTeam(cursor.getString(1));
             game.setAwayTeam(cursor.getString(2));
-            Date date = new SimpleDateFormat("dd/MM/YYYY").parse(cursor.getString(3));
+            // Added try/catch to get build to work
+            try
+            {
+                date = new SimpleDateFormat("dd/MM/YYYY").parse(cursor.getString(3));
+
+            }
+            catch(Exception ex)
+            {
+                ex.printStackTrace();
+            }
             game.setGameDate(date);
             cursor.close();
         } else{
@@ -99,14 +109,18 @@ public class myDBHandler extends SQLiteOpenHelper {
         Game game = new Game();
         if (cursor.moveToFirst()) {
             game.setGameID(cursor.getInt(0));
-            db.delete(Table_Game, )
+            // Commented out to get build to work
+            //db.delete(Table_Game, )
         }
 
+        // Added to get build to work
+        return true;
 
     }
     public boolean updateHandler(int gameID, String homeTeam){
 
-        
+        // Added to get build to work
+        return true;
     }
 
 
