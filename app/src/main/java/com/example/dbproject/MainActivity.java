@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MyDBHandler dbHandler = new MyDBHandler(v.getContext(), null, null, 1);
+                GameDBHandler dbHandler = new GameDBHandler(v.getContext(), null, null, 1);
                 ++ID;
                 Game game = new Game();
                 game.setGameID(ID);
