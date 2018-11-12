@@ -13,7 +13,7 @@ public class UserDBHandler extends SQLiteOpenHelper {
     private static final int Database_Version = 1;
     private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
     private static final String Table_User = Resources.getSystem().getString(R.string.User_Table_Name);
-    private static final String User_Column_ID = "GameID";
+    private static final String User_Column_ID = "UserID";
     private static final String User_Column_UserName = "UserName";
     private static final String User_Column_Password = "UserPassword";
     private static final String User_Column_Useremail = "Useremail";
