@@ -24,16 +24,17 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GameDBHandler dbHandler = new GameDBHandler(v.getContext(), null, null, 1);
-                ++ID;
-                Game game = new Game();
-                game.setGameID(ID);
-                game.setHomeTeam("Detroit");
-                game.setAwayTeam("Pittsburgh");
-                Date date = new Date();
-                game.setGameDate(date);
-                dbHandler.addGame_Handler(game);
+                //GameDBHandler dbHandler = new GameDBHandler(v.getContext(), null, null, 1);
+                //++ID;
+                //Game game = new Game();
+                //game.setGameID(ID);
+                //game.setHomeTeam("Detroit");
+                //game.setAwayTeam("Pittsburgh");
+                //Date date = new Date();
+                //game.setGameDate(date);
+                //dbHandler.addGame_Handler(game);
 
+                new GetSchedule(MainActivity.this).execute();
             }
         });
 

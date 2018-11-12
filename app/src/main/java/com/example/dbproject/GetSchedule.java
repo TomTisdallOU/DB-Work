@@ -30,6 +30,7 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
         HttpHandler sh = new HttpHandler();
         String url = "https://www.fantasyfootballnerd.com/service/schedule/json/pr8xb92kbh8m/";
         String jsonString = sh.makeServiceCall(url);
+        GameDBHandler gameDBHandler = null;
 
         Log.e(TAG, "Response from URL: " + jsonString);
 
@@ -41,11 +42,18 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
                 //TODO parse the data in JSON
                 for (int i = 0; i< jsonArraySchedule.length(); i++){
                     JSONObject jsonObjectGame = jsonArraySchedule.getJSONObject(i);
+                    Game game = null;
                     int gameWeek = jsonObjectGame.getInt("gameWeek");
-                    String gameDate = jsonObjectGame.getString("gameDate");
-                    String homeTeam = jsonObjectGame.getString("homeTeam");
-                    String awayTeam = jsonObjectGame.getString("awayTeam");
-                    String winner = jsonObjectGame.getString("winner");
+
+                    game.setGameID(i+10);
+                    game.setHomeTeam(jsonObjectGame.getString("homeTeam"));
+                    game.setAwayTeam(jsonObjectGame.getString("awayTeam"));
+                    //TODO convert date string to a date
+                    //game.setGameDate(jsonObjectGame.getString("gameDate"));
+                    game.setGameWeek(Integer.parseInt(jsonObjectGame.getString("gameWeek")));
+                    game.setWinner(jsonObjectGame.getString("winner"));
+
+                    gameDBHandler.addGame_Handler(game);
 
                 }
 

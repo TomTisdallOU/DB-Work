@@ -7,6 +7,11 @@ public class Game {
     private String homeTeam;
     private String awayTeam;
     private Date gameDate;
+    private int gameWeek;
+    private String winner;
+
+
+
 
     public Game(){
         this.gameID = 0;
@@ -39,9 +44,11 @@ public class Game {
         return gameDate;
     }
 
-    public void setGameID(int gameID) {
-        this.gameID = gameID;
-    }
+    public String getWinner() { return winner; }
+
+    public int getGameWeek() { return gameWeek; }
+
+    public void setGameID(int gameID) { this.gameID = gameID; }
 
     public void setHomeTeam(String homeTeam) {
         this.homeTeam = homeTeam;
@@ -54,4 +61,9 @@ public class Game {
     public void setGameDate(Date gameDate) {
         this.gameDate = gameDate;
     }
+
+    public void setWinner(String winner) { this.winner = winner; }
+
+    public void setGameWeek(int gameWeek) { this.gameWeek = gameWeek; }
+
 }

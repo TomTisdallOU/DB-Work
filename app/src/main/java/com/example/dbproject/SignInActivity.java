@@ -14,7 +14,7 @@ public class SignInActivity extends AppCompatActivity {
     EditText username, password = null;
     Button signInButton = null;
     TextView signUp = null;
-    UserDBHandler userDatabase = null;
+    UserDBHandler userDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

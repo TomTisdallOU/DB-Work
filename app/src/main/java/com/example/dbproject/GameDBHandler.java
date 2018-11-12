@@ -22,9 +22,11 @@ public class GameDBHandler extends SQLiteOpenHelper {
     private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
     private static final String Table_Game = Resources.getSystem().getString(R.string.Game_Table_Name);
     private static final String Game_Column_ID = "GameID";
-    private static final String Game_Column_HomeTeam = "GameHomeTeam";
-    private static final String Game_Column_AwayTeam = "GameAwayTeam";
-    private static final String Game_Column_GameDate = "GameGameDate";
+    private static final String Game_Column_HomeTeam = "HomeTeam";
+    private static final String Game_Column_AwayTeam = "AwayTeam";
+    private static final String Game_Column_GameDate = "GameDate";
+    private static final String Game_Column_GameWeek = "Week";
+    private static final String Game_Column_GameWinner = "Winner";
 
 
 
@@ -34,8 +36,13 @@ public class GameDBHandler extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        //TODO maybe remove this at some point - used to load table for simplicity
+        db.execSQL("Drop Table IF Exists Game");
+
         String Create_Game_Table = "Create table " + Table_Game + "(" + Game_Column_ID + " Integer Primary Key ," +
-                Game_Column_HomeTeam + " TEXT, " + Game_Column_AwayTeam + " TEXT, " + Game_Column_GameDate + " TEXT)";
+                Game_Column_HomeTeam + " TEXT, " + Game_Column_AwayTeam + " TEXT, " + Game_Column_GameDate + "TEXT" +
+                Game_Column_GameWeek + "Integer" + Game_Column_GameWinner + " TEXT)";
         db.execSQL(Create_Game_Table);
     }
 
@@ -55,7 +62,10 @@ public class GameDBHandler extends SQLiteOpenHelper {
             String homeTeam = cursor.getString(1);
             String awayTeam = cursor.getString(2);
             String gameDate = cursor.getString(3);
-            result = gameID + " " + homeTeam + " " + awayTeam + " " + gameDate + System.getProperty("line.separator");
+            int gameWeek = cursor.getInt(4);
+            String gameWinner = cursor.getString(5);
+            result = gameID + " " + homeTeam + " " + awayTeam + " " + gameDate + " " + gameWeek +
+                    " " + gameWinner + System.getProperty("line.separator");
         }
         cursor.close();
         db.close();
@@ -67,6 +77,8 @@ public class GameDBHandler extends SQLiteOpenHelper {
         values.put(Game_Column_HomeTeam, game.getHomeTeam());
         values.put(Game_Column_AwayTeam, game.getAwayTeam());
         values.put(Game_Column_GameDate, game.getGameDate().toString());
+        values.put(Game_Column_GameWeek, game.getGameWeek());
+        values.put(Game_Column_GameWinner, game.getWinner());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(Table_Game, null, values);
         db.close();
@@ -93,6 +105,9 @@ public class GameDBHandler extends SQLiteOpenHelper {
             {
                 ex.printStackTrace();
             }
+            game.setGameID(cursor.getInt(4));
+            game.setWinner(cursor.getString(5));
+
             game.setGameDate(date);
             cursor.close();
         } else{
