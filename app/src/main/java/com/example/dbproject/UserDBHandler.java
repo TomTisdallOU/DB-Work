@@ -11,8 +11,13 @@ import android.support.annotation.Nullable;
 public class UserDBHandler extends SQLiteOpenHelper {
     //DB Info
     private static final int Database_Version = 1;
-    private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
-    private static final String Table_User = Resources.getSystem().getString(R.string.User_Table_Name);
+ //   private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
+
+
+    private static final String Database_Name = "FootballPicker";
+    //private static final String Table_User = Resources.getSystem().getString(R.string.User_Table_Name);
+    private static final String Table_User = "User";
+
     private static final String User_Column_ID = "UserID";
     private static final String User_Column_UserName = "UserName";
     private static final String User_Column_Password = "UserPassword";
