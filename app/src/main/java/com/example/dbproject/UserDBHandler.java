@@ -21,19 +21,19 @@ public class UserDBHandler extends SQLiteOpenHelper {
     private static final String User_Column_ID = "UserID";
     private static final String User_Column_UserName = "UserName";
     private static final String User_Column_Password = "UserPassword";
-    private static final String User_Column_Useremail = "Useremail";
+    private static final String User_Column_UserEmail = "UserEmail";
     private static final String User_Column_UserPhoneNumber = "UserPhoneNumber";
 
 
 
     public UserDBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, Database_Name, factory, Database_Version);
+        super(context, Database_Name + ".db", factory, Database_Version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
         String Create_User_Table = "Create table " + Table_User + "(" + User_Column_ID + " Integer Primary Key ," +
-                User_Column_UserName + " TEXT, " + User_Column_Password + " TEXT, " + User_Column_Useremail + "TEXT, " +
+                User_Column_UserName + " TEXT, " + User_Column_Password + " TEXT, " + User_Column_UserEmail + " TEXT, " +
                 User_Column_UserPhoneNumber  + " TEXT)";
         db.execSQL(Create_User_Table);
 
@@ -54,9 +54,9 @@ public class UserDBHandler extends SQLiteOpenHelper {
             int userID = cursor.getInt(0);
             String userName = cursor.getString(1);
             String userPassword = cursor.getString(2);
-            String useremail = cursor.getString(3);
+            String userEmail = cursor.getString(3);
             String userPhoneNumber = cursor.getString(4);
-            result = userID  + " " + userName + " " + userPassword + " " + useremail + " " + userPhoneNumber + System.getProperty("line.separator");
+            result = userID  + " " + userName + " " + userPassword + " " + userEmail + " " + userPhoneNumber + System.getProperty("line.separator");
         }
         cursor.close();
         db.close();
@@ -69,7 +69,7 @@ public class UserDBHandler extends SQLiteOpenHelper {
         values.put(User_Column_ID, user.getUserID());
         values.put(User_Column_UserName, user.getUserName());
         values.put(User_Column_Password, user.getUserPassword());
-        values.put(User_Column_Useremail, user.getUserEmail());
+        values.put(User_Column_UserEmail, user.getUserEmail());
         values.put(User_Column_UserPhoneNumber, user.getUserPhoneNumber());
         SQLiteDatabase db = this.getWritableDatabase();
         db.insert(Table_User, null, values);
@@ -122,7 +122,7 @@ public class UserDBHandler extends SQLiteOpenHelper {
         args.put(User_Column_ID, user.getUserID());
         args.put(User_Column_UserName, user.getUserName());
         args.put(User_Column_Password, user.getUserPassword());
-        args.put(User_Column_Useremail, user.getUserEmail());
+        args.put(User_Column_UserEmail, user.getUserEmail());
         args.put(User_Column_UserPhoneNumber, user.getUserPhoneNumber());
         return db.update(Table_User, args, User_Column_ID + " = " + user.getUserID(), null) > 0;
 
@@ -130,7 +130,7 @@ public class UserDBHandler extends SQLiteOpenHelper {
 
     public User UserExistsInDatabase(String username, String password)
     {
-        String query = "Select * From " + Table_User + " Where " + User_Column_UserName+ " = " +username+ " And " + User_Column_Password + " = " + password;
+        String query = "Select * From " + Table_User + " Where " + User_Column_UserName+ " = '" +username+ "' And " + User_Column_Password + " = '" + password + "'";
         SQLiteDatabase db = getWritableDatabase();
         Cursor cursor = db.rawQuery(query, null);
         User user = new User();
