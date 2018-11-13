@@ -1,5 +1,6 @@
 package com.example.dbproject;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -42,10 +43,23 @@ public class RegisterActivity extends AppCompatActivity {
                 {
                     if(userDB.UserExistsInDatabase(usernameValue, passwordValue) == null)
                     {
+
                         int id = new Random().nextInt();
+                        if(id < 0)
+                            id = id * -1;
 
                         User user = new User(id, usernameValue, passwordValue, emailValue, "");
                         userDB.addUser_Handler(user);
+                        Toast.makeText(RegisterActivity.this,"Account successfully created.", Toast.LENGTH_SHORT).show();
+
+                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
+
+                    }
+                    else
+                    {
+                        Toast.makeText(RegisterActivity.this,"Account already exists with that username and password.", Toast.LENGTH_SHORT).show();
                     }
                 }
                 else
