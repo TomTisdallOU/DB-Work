@@ -55,9 +55,9 @@ public class SignInActivity extends AppCompatActivity {
                 {
                     if(userDatabase.UserExistsInDatabase(usernameValue, passwordValue) != null)
                     {
-                        //Intent intent = new Intent(SignInActivity.this, mainscreen.class);
+                        Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                         // Put the user data into intent and pass to activity?
-                        //startActivity(intent);
+                        startActivity(intent);
                     }
                     else
                     {
