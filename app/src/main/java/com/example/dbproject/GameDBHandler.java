@@ -18,37 +18,46 @@ import java.util.Locale;
 
 public class GameDBHandler extends SQLiteOpenHelper {
     //DB Info
-    private static final int Database_Version = 1;
-    private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
-    private static final String Table_Game = Resources.getSystem().getString(R.string.Game_Table_Name);
+    private static final int Database_Version = 2;
+    //private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
+   // private static final String Table_Game = Resources.getSystem().getString(R.string.Game_Table_Name);
+    private static final String Database_Name = "FootballPicker";
+    private static final String Table_Game = "Game";
+
     private static final String Game_Column_ID = "GameID";
     private static final String Game_Column_HomeTeam = "HomeTeam";
     private static final String Game_Column_AwayTeam = "AwayTeam";
     private static final String Game_Column_GameDate = "GameDate";
     private static final String Game_Column_GameWeek = "Week";
     private static final String Game_Column_GameWinner = "Winner";
+    private static final String Create_Game_Table = "Create table " + Table_Game + "(" + Game_Column_ID + " Integer Primary Key ," +
+            Game_Column_HomeTeam + " TEXT, " + Game_Column_AwayTeam + " TEXT, " + Game_Column_GameDate + " TEXT, " +
+            Game_Column_GameWeek + " Integer, " + Game_Column_GameWinner + " TEXT)";
+
+
 
 
 
     public GameDBHandler(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, Database_Name, factory, Database_Version);
+        super(context, Database_Name + ".db", factory, Database_Version);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
         //TODO maybe remove this at some point - used to load table for simplicity
-        db.execSQL("Drop Table IF Exists Game");
+       // db.execSQL("Drop Table IF Exists Game");
 
-        String Create_Game_Table = "Create table " + Table_Game + "(" + Game_Column_ID + " Integer Primary Key ," +
-                Game_Column_HomeTeam + " TEXT, " + Game_Column_AwayTeam + " TEXT, " + Game_Column_GameDate + "TEXT" +
-                Game_Column_GameWeek + "Integer" + Game_Column_GameWinner + " TEXT)";
-        db.execSQL(Create_Game_Table);
+        //Create_Game_Table = "Create table " + Table_Game + "(" + Game_Column_ID + " Integer Primary Key ," +
+                //Game_Column_HomeTeam + " TEXT, " + Game_Column_AwayTeam + " TEXT, " + Game_Column_GameDate + " TEXT, " +
+               // Game_Column_GameWeek + " Integer, " + Game_Column_GameWinner + " TEXT)";
+       // db.execSQL(Create_Game_Table);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
+        db.execSQL(Create_Game_Table);
     }
 
 

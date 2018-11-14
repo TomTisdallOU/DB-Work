@@ -35,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
                 //dbHandler.addGame_Handler(game);
 
                 new GetSchedule(MainActivity.this).execute();
+
+                int x = 3;
             }
         });
 
