@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //GameDBHandler dbHandler = new GameDBHandler(v.getContext(), null, null, 1);
+                //GameDBHandler gameDBHandler = new GameDBHandler(MainActivity.this, null, null, 2);
                 //++ID;
                 //Game game = new Game();
                 //game.setGameID(ID);
@@ -36,7 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
                 new GetSchedule(MainActivity.this).execute();
 
-                int x = 3;
+                //Somehow need to get the GameDBHandler over here so I can display the game
+
             }
         });
 
