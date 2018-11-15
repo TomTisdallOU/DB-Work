@@ -1,18 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/navigation_songs"
+        android:id="@+id/navigation_person"
         android:icon="@drawable/person"
         android:title="User"/>
 
     <item
-        android:id="@+id/navigation_albums"
-        android:icon="@drawable/football"
-        android:title="Standings"/>
+        android:id="@+id/navigation_weekly"
+        android:icon="@drawable/person"
+        android:title="a"/>
+
+    <item
+        android:id="@+id/navigation_season"
+        android:icon="@drawable/person"
+        android:title="b"/>
 
     <item
         android:id="@+id/navigation_artists"
 
-        android:icon="@drawable/football"
-        android:title="Maintenance"/>
+        android:icon="@drawable/person"
+        android:title="c"/>
 </menu>
