@@ -1,5 +1,7 @@
 package com.example.dbproject;
 
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +15,9 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     Button addButton = null;
-    Game game;
-    int ID = 0;
     BottomNavigationView bottomNavigationView = null;
+    Handler handler = null;
+    GameDBHandler gameDBHandler = null;
 
 
     @Override
@@ -23,6 +25,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        handler = new Handler(){
+
+            @Override
+            public void handleMessage(Message msg)
+            {
+                super.handleMessage(msg);
+                gameDBHandler = (GameDBHandler) msg.getData().getSerializable("GameDBHandler");
+            }
+        };
 
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
                 //game.setGameDate(date);
                 //dbHandler.addGame_Handler(game);
 
-                new GetSchedule(MainActivity.this).execute();
+                new GetSchedule(MainActivity.this, handler).execute();
 
                 //Somehow need to get the GameDBHandler over here so I can display the game
 

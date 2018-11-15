@@ -3,6 +3,9 @@ package com.example.dbproject;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -18,10 +21,13 @@ import java.util.Date;
 class GetSchedule extends AsyncTask<Void, Void, Void> {
     private Context context;
     private static final String TAG = GetSchedule.class.getSimpleName();
+    private GameDBHandler gameDBHandler = null;
+    Handler mainActivityHandler = null;
 
 
-    public GetSchedule(Context context){
+    public GetSchedule(Context context, Handler handler){
         this.context = context;
+        mainActivityHandler = handler;
     }
 
     @Override
@@ -35,7 +41,7 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
         HttpHandler sh = new HttpHandler();
         String url = "https://www.fantasyfootballnerd.com/service/schedule/json/pr8xb92kbh8m/";
         String jsonString = sh.makeServiceCall(url);
-        GameDBHandler gameDBHandler = new GameDBHandler(context, null, null, 2);
+        gameDBHandler = new GameDBHandler(context, null, null, 2);
 
         Log.e(TAG, "Response from URL: " + jsonString);
 
@@ -91,6 +97,12 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
         //Need to create an adapter and then return to Main Activity to display the list of games.
         //Something like this code
       //  MainActivity.testMethod("test");
+        Message msg = mainActivityHandler.obtainMessage();
+        Bundle bundle = msg.getData();
+        bundle.putSerializable("GameDBHandler", gameDBHandler);
+        msg.setData(bundle);
+        mainActivityHandler.sendMessage(msg);
+
     }
 
 }
