@@ -1,13 +1,17 @@
 package com.example.dbproject;
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.Toolbar;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -15,6 +19,7 @@ public class SignInActivity extends AppCompatActivity {
     Button signInButton = null;
     TextView signUp = null;
     UserDBHandler userDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +30,6 @@ public class SignInActivity extends AppCompatActivity {
         password = findViewById(R.id.passwordEditText);
         signUp = findViewById(R.id.signUpTextView);
         signInButton = findViewById(R.id.signInButton);
-
 
         userDatabase = new UserDBHandler(this, null, null, 1);
 
