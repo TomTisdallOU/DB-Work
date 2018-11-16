@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     <item
         android:id="@+id/navigation_person"
         android:icon="@drawable/person"
-        android:title="User"/>
+        android:enabled="true"
+        app:labelVisibilityMode="unlabeled"
+        android:layout_gravity="center_horizontal"
+        android:title="User"
+        />
 
     <item
-        android:id="@+id/navigation_weekly"
-        android:icon="@drawable/person"
-        android:title="a"/>
+        android:id="@+id/navigation_standings"
+        android:icon="@drawable/standings"
+        android:enabled="true"
+        app:labelVisibilityMode="labeled"
+        android:title="Standings"/>
+
+
 
     <item
-        android:id="@+id/navigation_season"
-        android:icon="@drawable/person"
-        android:title="b"/>
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/settings"
+        android:enabled="true"
+        android:tooltipText="Settings"
+        android:title="Settings"/>
 
-    <item
-        android:id="@+id/navigation_artists"
 
-        android:icon="@drawable/person"
-        android:title="c"/>
 </menu>

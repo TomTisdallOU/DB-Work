@@ -15,7 +15,7 @@ public class PicksDBHandler extends SQLiteOpenHelper {
     private static final String Picks_Column_GameID = "GameID";
     private static final String Game_Column_PickedTeam = "PickedTeam";
     private static final String Game_Column_Confidence = "Confidence";
-    
+
 
 //TODO  1. create the Find, Add, Delete, Update, Getall methods    2. Clean up strings -- can I get Resource.String to work?  3. Move DB to DB Name
 
