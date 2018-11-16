@@ -6,8 +6,10 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -16,7 +18,7 @@ import java.util.Date;
 import java.util.Locale;
 
 
-public class GameDBHandler extends SQLiteOpenHelper {
+public class GameDBHandler extends SQLiteOpenHelper implements Serializable {
     //DB Info
     private static final int Database_Version = 2;
     //private static final String Database_Name =  Resources.getSystem().getString(R.string.DB_Name);
