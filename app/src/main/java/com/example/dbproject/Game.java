@@ -6,7 +6,7 @@ public class Game {
     private int gameID;
     private String homeTeam;
     private String awayTeam;
-    private Date gameDate;
+    private String gameDate;
     private int gameWeek;
     private String winner;
 
@@ -21,7 +21,7 @@ public class Game {
     }
 
 
-    public Game(int gameID, String homeTeam, String awayTeam, Date gameDate) {
+    public Game(int gameID, String homeTeam, String awayTeam, String gameDate) {
         this.gameID = gameID;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
@@ -40,7 +40,7 @@ public class Game {
         return awayTeam;
     }
 
-    public Date getGameDate() {
+    public String getGameDate() {
         return gameDate;
     }
 
@@ -58,7 +58,7 @@ public class Game {
         this.awayTeam = awayTeam;
     }
 
-    public void setGameDate(Date gameDate) {
+    public void setGameDate(String gameDate) {
         this.gameDate = gameDate;
     }
 

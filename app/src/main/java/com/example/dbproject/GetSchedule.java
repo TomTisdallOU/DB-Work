@@ -54,16 +54,7 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
                 for (int i = 0; i< jsonArraySchedule.length(); i++){
                     JSONObject jsonObjectGame = jsonArraySchedule.getJSONObject(i);
                     Game game = null;
-                    Date gameDate = null;
-                    try
-                    {
-                        gameDate = new SimpleDateFormat("yyyy-MM-dd").parse(jsonObjectGame.getString("gameDate"));
-                    }
-                    catch (Exception ex)
-                    {
-                        ex.printStackTrace();
-                    }
-                    game = new Game(i+10, jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"), gameDate);
+                    game = new Game(i+10, jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"), jsonObjectGame.getString("gameDate"));
                     int gameWeek = jsonObjectGame.getInt("gameWeek");
 
                     //game.setGameID(i+10);

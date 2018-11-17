@@ -10,10 +10,13 @@ import android.os.Parcelable;
 import android.support.annotation.Nullable;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
@@ -98,7 +101,6 @@ public class GameDBHandler extends SQLiteOpenHelper implements Serializable {
     public Game findGameHander(int gameID){
         String query = "Select * From " + Table_Game + " Where " + Game_Column_ID + " = " + gameID;
         SQLiteDatabase db = getWritableDatabase();
-        Date date = null;
         Cursor cursor = db.rawQuery(query, null);
         Game game = new Game();
         if (cursor.moveToFirst()) {
@@ -106,20 +108,9 @@ public class GameDBHandler extends SQLiteOpenHelper implements Serializable {
             game.setGameID(cursor.getInt(0));
             game.setHomeTeam(cursor.getString(1));
             game.setAwayTeam(cursor.getString(2));
-            // Added try/catch to get build to work
-            try
-            {
-                date = new SimpleDateFormat("dd/MM/YYYY").parse(cursor.getString(3));
-
-            }
-            catch(Exception ex)
-            {
-                ex.printStackTrace();
-            }
+            game.setGameDate(cursor.getString(3));
             game.setGameID(cursor.getInt(4));
             game.setWinner(cursor.getString(5));
-
-            game.setGameDate(date);
             cursor.close();
         } else{
             game = null;
@@ -162,6 +153,30 @@ public class GameDBHandler extends SQLiteOpenHelper implements Serializable {
         }
         return numWeeksPlayed;
     }
+
+
+
+    public ArrayList<Game> GetGamesForWeek(int week)
+    {
+        String query = "Select * From " + Table_Game + " Where " + Game_Column_GameWeek + " = "  + week;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        ArrayList<Game> games = new ArrayList<>();
+
+        while (cursor.moveToNext()){
+            int gameID = cursor.getInt(0);
+            String homeTeam = cursor.getString(1);
+            String awayTeam = cursor.getString(2);
+            String gameDate = cursor.getString(3);
+            //String gameWinner = cursor.getString(5);
+
+            Game game = new Game(gameID, homeTeam, awayTeam, gameDate);
+            games.add(game);
+        }
+
+        return games;
+    }
+
 
 
 
