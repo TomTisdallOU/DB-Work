@@ -1,5 +1,6 @@
 package com.example.dbproject;
 
+import android.graphics.Color;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -27,14 +29,14 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = null;
     GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
-    ConstraintLayout picksConstraintLayoutContainer = null;
+    LinearLayout picksLinearLayoutContainer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        picksConstraintLayoutContainer = findViewById(R.id.gamesConstraintLayout);
+        picksLinearLayoutContainer = findViewById(R.id.gamesLinearLayout);
 
         weekSpinner = findViewById(R.id.weekSpinner);
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -111,6 +113,8 @@ public class MainActivity extends AppCompatActivity {
 
     void PopulateActivtyWithGames(ArrayList<Game> gamesForWeekList)
     {
+        int i = 0;
+
         for (Game game : gamesForWeekList)
         {
             // Render item layout
@@ -132,8 +136,13 @@ public class MainActivity extends AppCompatActivity {
             awayTeamButton.setText(game.getAwayTeam());
             homeTeamButton.setText(game.getHomeTeam());
 
+            // Change background color
+            //constraintLayout.setBackgroundColor(i % 2 == 0? Color.BLUE: Color.CYAN);
+
             // Add child in picks constraint layout
-            picksConstraintLayoutContainer.addView(constraintLayout);
+            picksLinearLayoutContainer.addView(constraintLayout);
+
+            i++;
         }
     }
 }
