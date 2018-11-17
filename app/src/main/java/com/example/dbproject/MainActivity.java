@@ -8,9 +8,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.Spinner;
 
+import java.lang.reflect.Field;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -18,12 +23,14 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView = null;
     Handler handler = null;
     GameDBHandler gameDBHandler = null;
-
+    Spinner weekSpinner = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        weekSpinner = findViewById(R.id.weekSpinner);
 
         handler = new Handler(){
 
@@ -32,29 +39,12 @@ public class MainActivity extends AppCompatActivity {
             {
                 super.handleMessage(msg);
                 gameDBHandler = (GameDBHandler) msg.getData().getSerializable("GameDBHandler");
+
+                PopulateSpinnner();
             }
         };
 
-        addButton = findViewById(R.id.addButton);
-        addButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //GameDBHandler gameDBHandler = new GameDBHandler(MainActivity.this, null, null, 2);
-                //++ID;
-                //Game game = new Game();
-                //game.setGameID(ID);
-                //game.setHomeTeam("Detroit");
-                //game.setAwayTeam("Pittsburgh");
-                //Date date = new Date();
-                //game.setGameDate(date);
-                //dbHandler.addGame_Handler(game);
-
-                new GetSchedule(MainActivity.this, handler).execute();
-
-                //Somehow need to get the GameDBHandler over here so I can display the game
-
-            }
-        });
+        new GetSchedule(MainActivity.this, handler).execute();
 
 
         bottomNavigationView = findViewById(R.id.navigationView);
@@ -67,5 +57,34 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+
+    }
+
+
+    private void PopulateSpinnner()
+    {
+        ArrayList<String> weeksPlayedInSeasonList = new ArrayList<>();
+        int weeks = gameDBHandler.WeeksPlayedInSeason();
+        for(int i=1; i <= weeks; i++)
+            weeksPlayedInSeasonList.add("Week " + String.valueOf(i));
+        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.simple_spinner_item, weeksPlayedInSeasonList);
+        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        weekSpinner.setAdapter(spinnerAdapter);
+        weekSpinner.setSelection(spinnerAdapter.getPosition("Week 11"));
+
+        try {
+            Field popup = Spinner.class.getDeclaredField("mPopup");
+            popup.setAccessible(true);
+
+            // Get private mPopup member variable and try cast to ListPopupWindow
+            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(weekSpinner);
+
+            // Set popupWindow height to 500px
+            popupWindow.setHeight(500);
+            popupWindow.setWidth(200);
+        }
+        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
+            // silently fail...
+        }
     }
 }

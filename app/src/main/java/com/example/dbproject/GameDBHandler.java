@@ -150,6 +150,19 @@ public class GameDBHandler extends SQLiteOpenHelper implements Serializable {
         return true;
     }
 
+    public int WeeksPlayedInSeason()
+    {
+        String query = "Select * From " + Table_Game;
+        SQLiteDatabase db = getWritableDatabase();
+        Cursor cursor = db.rawQuery(query, null);
+        int numWeeksPlayed = 0;
+
+        if (cursor.moveToLast()) {
+            numWeeksPlayed = cursor.getInt(4);
+        }
+        return numWeeksPlayed;
+    }
+
 
 
 
