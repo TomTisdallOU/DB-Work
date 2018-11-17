@@ -24,7 +24,7 @@ import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    Button addButton = null;
+    Button savePicksButton = null;
     BottomNavigationView bottomNavigationView = null;
     Handler handler = null;
     GameDBHandler gameDBHandler = null;
@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         picksLinearLayoutContainer = findViewById(R.id.gamesLinearLayout);
+        savePicksButton = findViewById(R.id.savePicksButton);
 
         weekSpinner = findViewById(R.id.weekSpinner);
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -144,5 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
             i++;
         }
+
+        savePicksButton.setVisibility(View.VISIBLE);
     }
 }
