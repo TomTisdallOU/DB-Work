@@ -27,14 +27,14 @@ public class MainActivity extends AppCompatActivity {
     Handler handler = null;
     GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
-    RelativeLayout relativeLayoutContainer = null;
+    ConstraintLayout picksConstraintLayoutContainer = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        relativeLayoutContainer = findViewById(R.id.activity_main);
+        picksConstraintLayoutContainer = findViewById(R.id.gamesConstraintLayout);
 
         weekSpinner = findViewById(R.id.weekSpinner);
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -132,8 +132,8 @@ public class MainActivity extends AppCompatActivity {
             awayTeamButton.setText(game.getAwayTeam());
             homeTeamButton.setText(game.getHomeTeam());
 
-            // Add child in Linear layout
-            relativeLayoutContainer.addView(constraintLayout);
+            // Add child in picks constraint layout
+            picksConstraintLayoutContainer.addView(constraintLayout);
         }
     }
 }
