@@ -8,9 +8,9 @@ import android.support.annotation.Nullable;
 public class PicksDBHandler extends SQLiteOpenHelper {
     private static final int Database_Version = 2;
     private static final String Database_Name = "FootballPicker";
-    private static final String Table_Picks = "Picks";
+    private static final String Table_Picks = "Pick";
 
-    private static final String Picks_Column_ID = "PicksID";
+    private static final String Picks_Column_ID = "PickID";
     private static final String Picks_Column_UserID = "UserID";
     private static final String Picks_Column_GameID = "GameID";
     private static final String Game_Column_PickedTeam = "PickedTeam";

@@ -1,9 +1,13 @@
 package com.example.dbproject;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
 import java.util.Date;
 
+@Entity
 public class Game {
-    private int gameID;
+    @PrimaryKey(autoGenerate = true) private int gameID;
     private String homeTeam;
     private String awayTeam;
     private String gameDate;
@@ -21,7 +25,7 @@ public class Game {
     }
 
 
-    public Game(int gameID, String homeTeam, String awayTeam, String gameDate) {
+    public Game(int gameID, String homeTeam, String awayTeam, String gameDate, int gameWeek) {
         this.gameID = gameID;
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;

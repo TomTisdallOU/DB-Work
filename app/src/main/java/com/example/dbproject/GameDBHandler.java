@@ -170,7 +170,7 @@ public class GameDBHandler extends SQLiteOpenHelper implements Serializable {
             String gameDate = cursor.getString(3);
             //String gameWinner = cursor.getString(5);
 
-            Game game = new Game(gameID, homeTeam, awayTeam, gameDate);
+            Game game = new Game(gameID, homeTeam, awayTeam, gameDate,1);
             games.add(game);
         }
 

@@ -4,8 +4,14 @@ package com.example.dbproject;
 
 //TODO - create add, update, delete, get classes
 //TODO - when creating or updating be sure to make sure the userName is unique.
+
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
 public class User {
-    int userID;
+
+    @PrimaryKey(autoGenerate = true) int userID;
     String userName;
     String userPassword;
     String userEmail;

@@ -1,14 +1,19 @@
 package com.example.dbproject;
 
-public class Picks {
-    private int picksID;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+
+@Entity
+public class Pick {
+    @PrimaryKey private int picksID;
     private int userID;
     private int gameID;
     private String teamPicked;
     private int confidence;
 
 
-    public Picks(){
+
+    public Pick(){
         picksID = -1;
         userID = -1;
         gameID = -1;
@@ -16,7 +21,7 @@ public class Picks {
         confidence = -1;
     }
 
-    public Picks(int picksID, int userID, int gameID, String teamPicked, int confidence) {
+    public Pick(int picksID, int userID, int gameID, String teamPicked, int confidence) {
         this.userID = userID;
         this.gameID = gameID;
         this.teamPicked = teamPicked;

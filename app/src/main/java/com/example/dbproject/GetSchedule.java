@@ -13,14 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
 
 class GetSchedule extends AsyncTask<Void, Void, Void> {
     private Context context;
     private static final String TAG = GetSchedule.class.getSimpleName();
+
+
+
     private GameDBHandler gameDBHandler = null;
     Handler mainActivityHandler = null;
 
@@ -28,6 +27,10 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
     public GetSchedule(Context context, Handler handler){
         this.context = context;
         mainActivityHandler = handler;
+    }
+
+    public GetSchedule(Context context){
+        this.context = context;
     }
 
     @Override
@@ -49,12 +52,12 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
             try {
                 JSONObject jsonObject = new JSONObject(jsonString);
                 JSONArray jsonArraySchedule = jsonObject.getJSONArray("Schedule");
-
+                int length = jsonArraySchedule.length();
                 //TODO parse the data in JSON
                 for (int i = 0; i< jsonArraySchedule.length(); i++){
                     JSONObject jsonObjectGame = jsonArraySchedule.getJSONObject(i);
                     Game game = null;
-                    game = new Game(i+10, jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"), jsonObjectGame.getString("gameDate"));
+                    game = new Game(i+10, jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"), jsonObjectGame.getString("gameDate"),1);
                     int gameWeek = jsonObjectGame.getInt("gameWeek");
 
                     //game.setGameID(i+10);
@@ -85,14 +88,15 @@ class GetSchedule extends AsyncTask<Void, Void, Void> {
     @Override
     protected void onPostExecute(Void result){
         super.onPostExecute(result);
+        Toast.makeText(context, "Season loading is complete", Toast.LENGTH_LONG).show();
         //Need to create an adapter and then return to Main Activity to display the list of games.
         //Something like this code
       //  MainActivity.testMethod("test");
-        Message msg = mainActivityHandler.obtainMessage();
-        Bundle bundle = msg.getData();
-        bundle.putSerializable("GameDBHandler", gameDBHandler);
-        msg.setData(bundle);
-        mainActivityHandler.sendMessage(msg);
+  //      Message msg = mainActivityHandler.obtainMessage();
+  //      Bundle bundle = msg.getData();
+  //      bundle.putSerializable("GameDBHandler", gameDBHandler);
+   //     msg.setData(bundle);
+   //     mainActivityHandler.sendMessage(msg);
 
     }
 

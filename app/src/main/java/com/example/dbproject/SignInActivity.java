@@ -18,7 +18,8 @@ public class SignInActivity extends AppCompatActivity {
     EditText username, password = null;
     Button signInButton = null;
     TextView signUp = null;
-    UserDBHandler userDatabase;
+   // UserDBHandler userDatabase;
+    private GamePickerDatabase gamePickerDatabase;
 
 
     @Override
@@ -26,12 +27,15 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        gamePickerDatabase = GamePickerDatabase.getInstance(SignInActivity.this);
+
         username = findViewById(R.id.usernameEditText);
         password = findViewById(R.id.passwordEditText);
         signUp = findViewById(R.id.signUpTextView);
         signInButton = findViewById(R.id.signInButton);
 
-        userDatabase = new UserDBHandler(this, null, null, 1);
+        //userDatabase = new UserDBHandler(this, null, null, 1);
+        String currentDBPath = getDatabasePath("FootballPicker2").getAbsolutePath();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +61,8 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if(userDatabase.UserExistsInDatabase(usernameValue, passwordValue) != null)
+                    if(gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue) != null)
+                            //userDatabase.UserExistsInDatabase(usernameValue, passwordValue) != null)
                     {
                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                         // Put the user data into intent and pass to activity?

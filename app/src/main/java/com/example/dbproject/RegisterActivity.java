@@ -15,7 +15,8 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText username, password, email = null;
     Button createAccountButton = null;
-    UserDBHandler userDB = null;
+//  UserDBHandler userDB = null;
+    private GamePickerDatabase gamePickerDatabase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +27,12 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.password);
         email = findViewById(R.id.email);
         createAccountButton = findViewById(R.id.createAccountButton);
+        gamePickerDatabase = GamePickerDatabase.getInstance(RegisterActivity.this);
 
 
-        userDB = new UserDBHandler(this, null, null, 1);
+
+
+    //  userDB = new UserDBHandler(this, null, null, 1);
 
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {
@@ -38,18 +42,21 @@ public class RegisterActivity extends AppCompatActivity {
                 String usernameValue = username.getText().toString();
                 String passwordValue = password.getText().toString();
                 String emailValue = email.getText().toString();
+                User user = new User(0,usernameValue, passwordValue, emailValue, null);
 
                 if(!usernameValue.equals("") && !passwordValue.equals("") && !emailValue.equals(("")))
                 {
-                    if(userDB.UserExistsInDatabase(usernameValue, passwordValue) == null)
+                    if(gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue) == null)
+                    //(userDB.UserExistsInDatabase(usernameValue, passwordValue) == null)
                     {
 
-                        int id = new Random().nextInt();
-                        if(id < 0)
-                            id = id * -1;
+                    //    int id = new Random().nextInt();
+                    //    if(id < 0)
+                    //        id = id * -1;
 
-                        User user = new User(id, usernameValue, passwordValue, emailValue, "");
-                        userDB.addUser_Handler(user);
+                    //    User user = new User(id, usernameValue, passwordValue, emailValue, "");
+                    //    userDB.addUser_Handler(user);
+                        gamePickerDatabase.getUserDao().insert(user);
                         Toast.makeText(RegisterActivity.this,"Account successfully created.", Toast.LENGTH_SHORT).show();
 
                         Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
