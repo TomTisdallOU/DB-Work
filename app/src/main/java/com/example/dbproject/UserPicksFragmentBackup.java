@@ -1,6 +1,5 @@
 package com.example.dbproject;
 
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,9 +18,8 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
-import java.util.List;
 
-public class UserPicksFragment extends Fragment {
+public class UserPicksFragmentBackup extends Fragment {
     GamePickerDatabase gamePickerDatabase = null;
     Button savePicksButton = null;
     Handler handler = null;
@@ -34,6 +32,8 @@ public class UserPicksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
+        
+        
 
         picksLinearLayoutContainer =  container.findViewById(R.id.gamesLinearLayout);
         savePicksButton = container.findViewById(R.id.savePicksButton);
@@ -137,24 +137,4 @@ public class UserPicksFragment extends Fragment {
 
         savePicksButton.setVisibility(View.VISIBLE);
     }
-
-private class LoadSpinner2 extends AsyncTask<Void, Void, ArrayList<String>> {
-
-
-    @Override
-    protected ArrayList<String> doInBackground(Void... voids) {
-        List<Integer> weekList = gamePickerDatabase.getGameDao().getListOfWeeks();
-
-        //TODO loop through integers of weeks and add "Week" to the front so the list says "Week 1, Week 2 etc.
-        //TODO Figure out best way to "lock" weeks -- show old weeks as output only.  Maybe older by date?
-        //TODO have the spinner default to the current week -- closest by date
-
-
-        return new ArrayList<String>();
-    }
 }
-
-
-
-}
-

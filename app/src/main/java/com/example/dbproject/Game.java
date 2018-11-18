@@ -22,6 +22,8 @@ public class Game {
         this.homeTeam = "";
         this.awayTeam = "";
         this.gameDate = null;
+        this.gameWeek = 0;
+        this.winner = "";
     }
 
 
@@ -30,6 +32,7 @@ public class Game {
         this.homeTeam = homeTeam;
         this.awayTeam = awayTeam;
         this.gameDate = gameDate;
+        this.gameWeek = gameWeek;
     }
 
     public int getGameID() {

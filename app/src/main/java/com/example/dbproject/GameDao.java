@@ -28,4 +28,8 @@ public interface GameDao {
     List<Game> findGamesForWeek(final String gameWeek);
 
 
+    @Query("Select Distinct gameWeek from game")
+    List<Integer> getListOfWeeks();
+
+
 }

@@ -47,7 +47,7 @@ public class LoadSeason extends AsyncTask {
                     JSONObject jsonObjectGame = jsonArraySchedule.getJSONObject(i);
                     Game game = null;
                  //   game = new Game(i + 10, jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"), jsonObjectGame.getString("gameDate"));
-                 //   int gameWeek = jsonObjectGame.getInt("gameWeek");
+                    int gameWeek = jsonObjectGame.getInt("gameWeek");
 
                     game = new Game(0,jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"),
                             jsonObjectGame.getString("gameDate"), Integer.parseInt(jsonObjectGame.getString("gameWeek")));
@@ -77,6 +77,13 @@ public class LoadSeason extends AsyncTask {
         }
 
         return null;
+    }
+
+
+    @Override
+    protected void onPostExecute(Object object) {
+        super.onPostExecute(object);
+        Toast.makeText(context, "Database load complete", Toast.LENGTH_LONG).show();
     }
 
 }
