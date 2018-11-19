@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/user_picks"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:id="@+id/user_picks">
+    android:layout_height="match_parent">
 
     <Spinner
         android:id="@+id/weekSpinner"
@@ -18,36 +17,37 @@
 
     <ScrollView
         android:id="@+id/gamesScrollView"
-        android:layout_width="match_parent"
+        android:layout_width="368dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    <LinearLayout
-        android:id="@+id/gamesLinearLayout"
-        android:layout_width="match_parent"
-        android:layout_height="500dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0"
-        tools:layout_editor_absoluteX="0dp">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekSpinner">
 
-        <Button
-            android:id="@+id/savePicksButton"
+        <LinearLayout
+            android:id="@+id/gamesLinearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginTop="8dp"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:layout_editor_absoluteX="0dp">
 
-            android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="125dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="32dp"
-            android:text="Save Picks"
-            android:visibility="invisible" />
-    </LinearLayout>
+            <Button
+                android:id="@+id/savePicksButton"
+
+                android:layout_width="145dp"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="32dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginStart="125dp"
+                android:layout_marginTop="20dp"
+                android:text="Save Picks"
+                android:visibility="invisible" />
+        </LinearLayout>
     </ScrollView>
 
 

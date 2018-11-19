@@ -123,8 +123,24 @@ public class UserPicksFragment extends Fragment {
             TextView homeTeamTextView = constraintLayout.findViewById(R.id.homeTeamTextView);
             TextView dateTextView = constraintLayout.findViewById(R.id.dateTextView);
 
-            Button awayTeamButton = constraintLayout.findViewById(R.id.awayTeamButton);
-            Button homeTeamButton = constraintLayout.findViewById(R.id.homeTeamButton);
+            final Button awayTeamButton = constraintLayout.findViewById(R.id.awayTeamButton);
+            final Button homeTeamButton = constraintLayout.findViewById(R.id.homeTeamButton);
+
+            awayTeamButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.setSelected(true);
+                    homeTeamButton.setSelected(false);
+                }
+            });
+
+            homeTeamButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    v.setSelected(true);
+                    awayTeamButton.setSelected(false);
+                }
+            });
 
 
             awayTeamTextView.setText(game.getAwayTeam());
