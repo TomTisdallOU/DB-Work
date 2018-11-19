@@ -38,8 +38,6 @@ public class UserPicksFragment extends Fragment {
 
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
 
-     //   picksLinearLayoutContainer =  container.findViewById(R.id.gamesLinearLayout);
-     //   savePicksButton = container.findViewById(R.id.savePicksButton);
 
 
 
@@ -49,20 +47,25 @@ public class UserPicksFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+        picksLinearLayoutContainer =  view.findViewById(R.id.gamesLinearLayout);
+        savePicksButton = view.findViewById(R.id.savePicksButton);
+
         weekSpinner = view.findViewById(R.id.weekSpinner);
-  //      weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-  //          @Override
-  //          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-   //             ArrayList<Game> games = gameDBHandler.GetGamesForWeek(position + 1);
-   //             PopulateActivityWithGames(games);
-   //         }
+                List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(position + 1);
 
-    //        @Override
-    //        public void onNothingSelected(AdapterView<?> parent) {
+             //   ArrayList<Game> games = gameDBHandler.GetGamesForWeek(position + 1);
+                PopulateActivityWithGames(games);
+            }
 
-     //       }
-     //   });
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        weekSpinner.setEnabled(false);
 
     //    handler = new Handler(){
 
@@ -110,7 +113,7 @@ public class UserPicksFragment extends Fragment {
 
 
 
-    void PopulateActivityWithGames(ArrayList<Game> gamesForWeekList)
+    void PopulateActivityWithGames(List<Game> gamesForWeekList)
     {
         int i = 0;
 
@@ -179,6 +182,7 @@ private class LoadSpinner2 extends AsyncTask<Void, Void, Void> {
         ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(), android.R.layout.simple_spinner_item, listOfWeeks);
 
         mySpinner.setAdapter(adapter);
+        weekSpinner.setEnabled(true);
 
 
 

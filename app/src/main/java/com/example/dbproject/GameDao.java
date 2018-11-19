@@ -25,7 +25,7 @@ public interface GameDao {
     List<Game> getAllGames();
 
     @Query("Select * from game where game.gameWeek=:gameWeek")
-    List<Game> findGamesForWeek(final String gameWeek);
+    List<Game> findGamesForWeek(final int gameWeek);
 
 
     @Query("Select Distinct gameWeek from game")
