@@ -19,6 +19,7 @@ import android.widget.TextView;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class UserPicksFragment extends Fragment {
@@ -29,47 +30,55 @@ public class UserPicksFragment extends Fragment {
     Spinner weekSpinner = null;
     LinearLayout picksLinearLayoutContainer = null;
 
+    ArrayList<String> listOfWeeks = new ArrayList<>();;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
 
-        picksLinearLayoutContainer =  container.findViewById(R.id.gamesLinearLayout);
-        savePicksButton = container.findViewById(R.id.savePicksButton);
+     //   picksLinearLayoutContainer =  container.findViewById(R.id.gamesLinearLayout);
+     //   savePicksButton = container.findViewById(R.id.savePicksButton);
 
-        weekSpinner = container.findViewById(R.id.weekSpinner);
-        weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                ArrayList<Game> games = gameDBHandler.GetGamesForWeek(position + 1);
-                PopulateActivityWithGames(games);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
-        handler = new Handler(){
-
-            @Override
-            public void handleMessage(Message msg)
-            {
-                super.handleMessage(msg);
-                gameDBHandler = (GameDBHandler) msg.getData().getSerializable("GameDBHandler");
-
-                PopulateSpinnner();
-            }
-        };
-
-        new GetSchedule(getActivity(), handler).execute();
 
 
 
         return inflater.inflate(R.layout.user_picks_fragment, container, false);
+    }
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState){
+        weekSpinner = view.findViewById(R.id.weekSpinner);
+  //      weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+  //          @Override
+  //          public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+   //             ArrayList<Game> games = gameDBHandler.GetGamesForWeek(position + 1);
+   //             PopulateActivityWithGames(games);
+   //         }
+
+    //        @Override
+    //        public void onNothingSelected(AdapterView<?> parent) {
+
+     //       }
+     //   });
+
+    //    handler = new Handler(){
+
+     //       @Override
+     //       public void handleMessage(Message msg)
+     //       {
+     //           super.handleMessage(msg);
+     //           gameDBHandler = (GameDBHandler) msg.getData().getSerializable("GameDBHandler");
+//
+  //              PopulateSpinnner();
+    //        }
+    //    };
+
+        //    new GetSchedule(getActivity(), handler).execute();
+        new LoadSpinner2().execute();
+
     }
 
     private void PopulateSpinnner()
@@ -138,19 +147,41 @@ public class UserPicksFragment extends Fragment {
         savePicksButton.setVisibility(View.VISIBLE);
     }
 
-private class LoadSpinner2 extends AsyncTask<Void, Void, ArrayList<String>> {
+private class LoadSpinner2 extends AsyncTask<Void, Void, Void> {
 
 
     @Override
-    protected ArrayList<String> doInBackground(Void... voids) {
+    protected Void doInBackground(Void... params) {
+
         List<Integer> weekList = gamePickerDatabase.getGameDao().getListOfWeeks();
+     //   ArrayList<String> listOfWeeks = new ArrayList<>();
 
         //TODO loop through integers of weeks and add "Week" to the front so the list says "Week 1, Week 2 etc.
         //TODO Figure out best way to "lock" weeks -- show old weeks as output only.  Maybe older by date?
         //TODO have the spinner default to the current week -- closest by date
+        //TODO the URL data does return a current week, we can use that to determine what can be changed and what is output only.
+        Iterator<Integer> itr = weekList.iterator();
+        while (itr.hasNext()){
+            listOfWeeks.add("Week " + itr.next());
+        }
+
+        return null;
+
+       // return listOfWeeks;
+    }
+
+    @Override
+    protected void onPostExecute(Void args){
+
+        //TODO get R.id.Spinner and set the adapter to these results
+        Spinner mySpinner = (Spinner) getView().findViewById(R.id.weekSpinner);
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(), android.R.layout.simple_spinner_item, listOfWeeks);
+
+        mySpinner.setAdapter(adapter);
 
 
-        return new ArrayList<String>();
+
     }
 }
 
