@@ -2,8 +2,6 @@ package com.example.dbproject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -25,7 +23,7 @@ import java.util.List;
 public class UserPicksFragment extends Fragment {
     GamePickerDatabase gamePickerDatabase = null;
     Button savePicksButton = null;
-    Handler handler = null;
+
     GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
     LinearLayout picksLinearLayoutContainer = null;
@@ -37,11 +35,6 @@ public class UserPicksFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
 
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
-
-
-
-
-
         return inflater.inflate(R.layout.user_picks_fragment, container, false);
     }
 
@@ -54,6 +47,8 @@ public class UserPicksFragment extends Fragment {
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                //TODO Cheated the picker #, assumed position + 1 shows the weeks.  Probably ok for us to leave.
 
                 List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(position + 1);
 
@@ -84,6 +79,7 @@ public class UserPicksFragment extends Fragment {
 
     }
 
+    /*
     private void PopulateSpinnner()
     {
         ArrayList<String> weeksPlayedInSeasonList = new ArrayList<>();
@@ -110,7 +106,7 @@ public class UserPicksFragment extends Fragment {
             // silently fail...
         }
     }
-
+*/
 
 
     void PopulateActivityWithGames(List<Game> gamesForWeekList)
@@ -183,9 +179,7 @@ private class LoadSpinner2 extends AsyncTask<Void, Void, Void> {
 
         mySpinner.setAdapter(adapter);
         weekSpinner.setEnabled(true);
-
-
-
+        
     }
 }
 
