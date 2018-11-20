@@ -49,10 +49,13 @@ public class UserPicksFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
                 //TODO Cheated the picker #, assumed position + 1 shows the weeks.  Probably ok for us to leave.
+                //TODO Navigation menu is overlapping the last game of the week
 
+                picksLinearLayoutContainer.removeAllViews();
+
+                picksLinearLayoutContainer.addView(savePicksButton);
                 List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(position + 1);
 
-             //   ArrayList<Game> games = gameDBHandler.GetGamesForWeek(position + 1);
                 PopulateActivityWithGames(games);
             }
 
