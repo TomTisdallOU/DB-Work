@@ -6,27 +6,19 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Spinner
-        android:id="@+id/weekSpinner"
-        android:layout_width="125dp"
-        android:layout_height="33dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <ScrollView
         android:id="@+id/gamesScrollView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weekSpinner">
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/gamesLinearLayout"
             android:layout_width="match_parent"
-            android:layout_height="500dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:orientation="vertical"
@@ -35,15 +27,22 @@
             app:layout_constraintVertical_bias="0.0"
             tools:layout_editor_absoluteX="0dp">
 
+            <Spinner
+                android:id="@+id/weekSpinner"
+                android:layout_width="125dp"
+                android:layout_height="33dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="16dp" />
+
             <Button
                 android:id="@+id/savePicksButton"
 
                 android:layout_width="145dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="125dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="4dp"
                 android:text="Save Picks"
                 android:visibility="invisible" />
         </LinearLayout>
