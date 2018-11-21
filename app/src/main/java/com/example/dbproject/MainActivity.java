@@ -30,13 +30,24 @@ public class MainActivity extends AppCompatActivity {
 
 
     BottomNavigationView bottomNavigationView = null;
-
+    User user = null;
+    GamePickerDatabase gamePickerDatabase = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        //Get User
+        gamePickerDatabase = GamePickerDatabase.getInstance(this);
+        Bundle extraData = getIntent().getExtras();
+        if (extraData != null){
+            int userID = extraData.getInt("UserID");
+            user = gamePickerDatabase.getUserDao().getUser(userID);
+
+        }
 
 
 
@@ -57,6 +68,8 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    //TODO get user information in the fragments.  how to do that?
     protected void selectFragment(MenuItem item){
         item.setChecked(true);
 

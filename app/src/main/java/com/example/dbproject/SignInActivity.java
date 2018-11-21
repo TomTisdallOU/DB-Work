@@ -61,11 +61,15 @@ public class SignInActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    if(gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue) != null)
-                            //userDatabase.UserExistsInDatabase(usernameValue, passwordValue) != null)
+                    User user = gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue);
+
+                    if (user != null)
+                    //if(gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue) != null)
+
                     {
                         Intent intent = new Intent(SignInActivity.this, MainActivity.class);
-                        // Put the user data into intent and pass to activity?
+                        intent.putExtra("UserID", user.userID);
+
                         startActivity(intent);
                     }
                     else
