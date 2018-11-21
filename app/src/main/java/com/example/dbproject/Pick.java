@@ -5,7 +5,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Pick {
-    @PrimaryKey private int picksID;
+    @PrimaryKey(autoGenerate = true) private int picksID;
     private int userID;
     private int gameID;
     private String teamPicked;

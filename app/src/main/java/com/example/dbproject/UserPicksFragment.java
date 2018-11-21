@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import java.lang.reflect.Field;
+//import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -24,7 +24,7 @@ public class UserPicksFragment extends Fragment {
     GamePickerDatabase gamePickerDatabase = null;
     Button savePicksButton = null;
 
-    GameDBHandler gameDBHandler = null;
+//    GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
     LinearLayout picksLinearLayoutContainer = null;
 
@@ -48,12 +48,11 @@ public class UserPicksFragment extends Fragment {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-                //TODO Cheated the picker #, assumed position + 1 shows the weeks.  Probably ok for us to leave.
-
                 picksLinearLayoutContainer.removeAllViews();
 
                 picksLinearLayoutContainer.addView(weekSpinner);
                 picksLinearLayoutContainer.addView(savePicksButton);
+                //TODO Cheated the picker #, assumed position + 1 shows the weeks.  Probably ok for us to leave.
                 List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(position + 1);
 
                 PopulateActivityWithGames(games);
@@ -65,62 +64,24 @@ public class UserPicksFragment extends Fragment {
         });
         weekSpinner.setEnabled(false);
 
-    //    handler = new Handler(){
-
-     //       @Override
-     //       public void handleMessage(Message msg)
-     //       {
-     //           super.handleMessage(msg);
-     //           gameDBHandler = (GameDBHandler) msg.getData().getSerializable("GameDBHandler");
-//
-  //              PopulateSpinnner();
-    //        }
-    //    };
-
-        //    new GetSchedule(getActivity(), handler).execute();
         new LoadSpinner2().execute();
 
     }
 
-    /*
-    private void PopulateSpinnner()
-    {
-        ArrayList<String> weeksPlayedInSeasonList = new ArrayList<>();
-        int weeks = gameDBHandler.WeeksPlayedInSeason();
-        for(int i=1; i <= weeks; i++)
-            weeksPlayedInSeasonList.add("Week " + String.valueOf(i));
-        ArrayAdapter<String> spinnerAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, weeksPlayedInSeasonList);
-        spinnerAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        weekSpinner.setAdapter(spinnerAdapter);
-        weekSpinner.setSelection(spinnerAdapter.getPosition("Week 11"));
 
-        try {
-            Field popup = Spinner.class.getDeclaredField("mPopup");
-            popup.setAccessible(true);
-
-            // Get private mPopup member variable and try cast to ListPopupWindow
-            android.widget.ListPopupWindow popupWindow = (android.widget.ListPopupWindow) popup.get(weekSpinner);
-
-            // Set popupWindow height to 500px
-            popupWindow.setHeight(500);
-            popupWindow.setWidth(200);
-        }
-        catch (NoClassDefFoundError | ClassCastException | NoSuchFieldException | IllegalAccessException e) {
-            // silently fail...
-        }
-    }
-*/
 
 
     void PopulateActivityWithGames(List<Game> gamesForWeekList)
     {
-        int i = 0;
+        int i = 1;
 
         for (Game game : gamesForWeekList)
         {
             // Render item layout
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             ConstraintLayout constraintLayout = (ConstraintLayout) inflater.inflate(R.layout.game, null);
+            constraintLayout.setTag(game);
+
 
             TextView awayTeamTextView = constraintLayout.findViewById(R.id.awayTeamTextView);
             TextView homeTeamTextView = constraintLayout.findViewById(R.id.homeTeamTextView);
@@ -134,6 +95,7 @@ public class UserPicksFragment extends Fragment {
                 public void onClick(View v) {
                     v.setSelected(true);
                     homeTeamButton.setSelected(false);
+
                 }
             });
 
@@ -163,6 +125,36 @@ public class UserPicksFragment extends Fragment {
         }
 
         savePicksButton.setVisibility(View.VISIBLE);
+        savePicksButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
+                Button awayButton = null;
+                Game game = null;
+                final int count = picksLinearLayoutContainer.getChildCount();
+                for (int i = 0; i< count; i++) {
+                    final View child = picksLinearLayoutContainer.getChildAt(i);
+
+                    if (child instanceof ConstraintLayout){
+                        game = (Game) child.getTag();
+                        awayButton = child.findViewById(R.id.awayTeamButton);
+                        Pick pick;
+                        if (awayButton.isSelected()){
+                            //TODO Not the greatest logic, will always pick home team if no team is selected.
+                            //TODO this currently does an insert, should see if one exists and update instead
+                            pick = new Pick(0, 1, game.getGameID(), game.getAwayTeam(), 1);
+
+                        } else {
+                            pick = new Pick(0, 1, game.getGameID(), game.getHomeTeam(), 1);
+                        }
+                        gamePickerDatabase.getPickDao().insert(pick);
+                    }
+                }
+            }
+        });
+
+
+
     }
 
 private class LoadSpinner2 extends AsyncTask<Void, Void, Void> {
