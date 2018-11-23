@@ -14,14 +14,14 @@ public class Pick {
 
 
     public Pick(){
-        picksID = -1;
+        //picksID = -1;
         userID = -1;
         gameID = -1;
         teamPicked = "";
-        confidence = -1;
+        confidence = 0;
     }
 
-    public Pick(int picksID, int userID, int gameID, String teamPicked, int confidence) {
+    public Pick(int userID, int gameID, String teamPicked, int confidence) {
         this.userID = userID;
         this.gameID = gameID;
         this.teamPicked = teamPicked;

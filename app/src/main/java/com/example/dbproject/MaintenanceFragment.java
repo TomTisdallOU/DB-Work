@@ -11,6 +11,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
@@ -66,6 +67,15 @@ public class MaintenanceFragment extends Fragment {
             }
         });
 
+
+        btnMakeRandomPicks = view.findViewById((R.id.buttonMakeRandomPicks));
+        btnMakeRandomPicks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                makeRandomPicksforWeek();
+            }
+        });
+
     }
 
     private void getHowManyUserstoAddDialog() {
@@ -105,15 +115,7 @@ public class MaintenanceFragment extends Fragment {
         builder.setTitle("Select the week to update");
 
         final Spinner weekSpinner = new Spinner(getActivity());
-        ArrayList<String> listOfWeeks = new ArrayList<>();
-        List<Integer> weekList = gamePickerDatabase.getGameDao().getListOfWeeks();
-        Iterator<Integer> itr = weekList.iterator();
-        while (itr.hasNext()){
-            listOfWeeks.add("Week " + itr.next());
-        }
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(), android.R.layout.simple_spinner_item, listOfWeeks);
-
-        weekSpinner.setAdapter(adapter);
+        weekSpinner.setAdapter(getWeeksList());
         weekSpinner.setEnabled(true);
         builder.setView(weekSpinner);
 
@@ -136,6 +138,53 @@ public class MaintenanceFragment extends Fragment {
         });
 
         builder.show();
+    }
+
+
+    public void makeRandomPicksforWeek(){
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Select the week to update");
+
+        final Spinner weekSpinner = new Spinner(getActivity());
+        weekSpinner.setAdapter(getWeeksList());
+        weekSpinner.setEnabled(true);
+        builder.setView(weekSpinner);
+
+
+// Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO load results for the specific week
+                //Adding one due to index starting at 0 -- so pick 5 means week 6
+                int selectedWeek = weekSpinner.getSelectedItemPosition() + 1;
+                //TOD MAke the random picks
+                new MakeRandomPicks(getActivity(),selectedWeek).execute();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+
+    public ArrayAdapter<String> getWeeksList(){
+        ArrayList<String> listOfWeeks = new ArrayList<>();
+        List<Integer> weekList = gamePickerDatabase.getGameDao().getListOfWeeks();
+        Iterator<Integer> itr = weekList.iterator();
+        while (itr.hasNext()){
+            listOfWeeks.add("Week " + itr.next());
+        }
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getView().getContext(), android.R.layout.simple_spinner_item, listOfWeeks);
+
+
+        return adapter;
     }
 }
 

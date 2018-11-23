@@ -148,10 +148,11 @@ public class UserPicksFragment extends Fragment {
                         if (awayButton.isSelected()){
                             //TODO Not the greatest logic, will always pick home team if no team is selected.
                             //TODO this currently does an insert, should see if one exists and update instead
-                            pick = new Pick(0, 1, game.getGameID(), game.getAwayTeam(), 1);
+                            //TODO Pick tied to userid 1 which it should use ID Passed in
+                            pick = new Pick(1, game.getGameID(), game.getAwayTeam(), 1);
 
                         } else {
-                            pick = new Pick(0, 1, game.getGameID(), game.getHomeTeam(), 1);
+                            pick = new Pick( 1, game.getGameID(), game.getHomeTeam(), 1);
                         }
                         gamePickerDatabase.getPickDao().insert(pick);
                     }

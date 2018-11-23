@@ -11,6 +11,7 @@ import android.arch.persistence.room.PrimaryKey;
 @Entity
 public class User {
 
+    //TODO Make these guys private
     @PrimaryKey(autoGenerate = true) int userID;
     String userName;
     String userPassword;
