@@ -34,5 +34,8 @@ public interface GameDao {
     @Query("Delete from game")
     void clearGameTable();
 
+    @Query("Update game set winner=:winner where game.gameID=:gameID")
+    void updateWinner(int gameID, String winner);
+
 
 }

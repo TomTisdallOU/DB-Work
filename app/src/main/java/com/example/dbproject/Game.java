@@ -7,7 +7,7 @@ import java.util.Date;
 
 @Entity
 public class Game {
-    @PrimaryKey(autoGenerate = true) private int gameID;
+    @PrimaryKey private int gameID;
     private String homeTeam;
     private String awayTeam;
     private String gameDate;
