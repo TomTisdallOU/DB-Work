@@ -38,6 +38,8 @@ public class LoadSeason extends AsyncTask {
         //TODO -- Test this -- used to wipe out all games to reload them.
         gamePickerDatabase.getGameDao().clearGameTable();
         gamePickerDatabase.getPickDao().clearPickTable();
+        Log.e(TAG, "Clearing games and picks successful");
+
 
         Log.e(TAG, "Response from URL: " + jsonString);
 
