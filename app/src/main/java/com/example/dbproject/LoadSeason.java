@@ -11,7 +11,7 @@ import org.json.JSONObject;
 
 public class LoadSeason extends AsyncTask {
     private Context context;
-    private static final String TAG = GetSchedule.class.getSimpleName();
+    private static final String TAG = LoadSeason.class.getSimpleName();
     private GamePickerDatabase gamePickerDatabase;
     private int countOfGames = 0;
 

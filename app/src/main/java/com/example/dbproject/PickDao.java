@@ -31,7 +31,7 @@ public interface PickDao {
     void clearPickTable();
 
 
-    @Query("Select user.userName, count(*) as totalPoints from pick left join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
+    @Query("Select user.userID as userId, user.userName, count(*) as totalPoints from pick left join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
             "                                   left join user on user.userID = pick.userID  " +
             "                                   where gameWeek =:week group by  user.userName")
     List<UserResults> getWeeklyResults(int week);
