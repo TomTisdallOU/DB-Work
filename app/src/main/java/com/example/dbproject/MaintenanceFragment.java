@@ -7,13 +7,16 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 
+import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -22,8 +25,10 @@ import java.util.List;
 
 public class MaintenanceFragment extends Fragment {
 
-    Button addDataButton = null;
-    Button getWeeklyResults = null;
+    Button btnAddDataButton = null;
+    Button btnGetWeeklyResults = null;
+    Button btnAddRandomUsers = null;
+    Button btnMakeRandomPicks = null;
     GamePickerDatabase gamePickerDatabase = null;
 
     @Nullable
@@ -37,26 +42,64 @@ public class MaintenanceFragment extends Fragment {
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
 
-        addDataButton = view.findViewById(R.id.buttonAddData);
-        addDataButton.setOnClickListener(new View.OnClickListener() {
+        btnAddDataButton = view.findViewById(R.id.buttonAddData);
+        btnAddDataButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new LoadSeason(getActivity()).execute();
             }
         });
 
-        getWeeklyResults = view.findViewById(R.id.buttonGetWeekResults);
-        getWeeklyResults.setOnClickListener(new View.OnClickListener() {
+        btnGetWeeklyResults = view.findViewById(R.id.buttonGetWeekResults);
+        btnGetWeeklyResults.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                inviteDialog();
+                getResultsforWeekDialog();
+            }
+        });
+
+        btnAddRandomUsers = view.findViewById(R.id.buttonAddRandomUsers);
+        btnAddRandomUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getHowManyUserstoAddDialog();
             }
         });
 
     }
 
+    private void getHowManyUserstoAddDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle("Enter how many users to add");
 
-    public void inviteDialog(){
+        final EditText usersToAdd = new EditText(getActivity());
+        usersToAdd.setInputType(InputType.TYPE_CLASS_NUMBER);
+        builder.setView(usersToAdd);
+
+
+// Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                //TODO load results for the specific week
+                //Adding one due to index starting at 0 -- so pick 5 means week 6
+                int numberOfUserstoAdd =  Integer.parseInt(usersToAdd.getText().toString());
+                new AddUsers(getActivity(),numberOfUserstoAdd).execute();
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
+    }
+
+
+
+    public void getResultsforWeekDialog(){
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("Select the week to update");

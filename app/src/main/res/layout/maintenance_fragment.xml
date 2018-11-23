@@ -59,6 +59,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
+        android:id="@+id/buttonAddRandomUsers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:text="Add Random Users"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buttonClearDatabase" />
+
+    <Button
         android:id="@+id/buttonMakeRandomPicks"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -68,5 +80,6 @@
         android:text="Make Random Picks"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/buttonClearDatabase" />
+        app:layout_constraintTop_toBottomOf="@+id/buttonAddRandomUsers" />
+
 </android.support.constraint.ConstraintLayout>
