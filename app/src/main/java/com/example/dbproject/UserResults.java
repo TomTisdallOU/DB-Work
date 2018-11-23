@@ -1,6 +1,15 @@
 package com.example.dbproject;
 
 public class UserResults {
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    private int userId;
     private String userName;
     private int totalPoints;
 
