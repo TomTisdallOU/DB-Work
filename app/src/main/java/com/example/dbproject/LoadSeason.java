@@ -53,15 +53,6 @@ public class LoadSeason extends AsyncTask {
                 for (int i = 0; i < jsonArraySchedule.length(); i++) {
                     JSONObject jsonObjectGame = jsonArraySchedule.getJSONObject(i);
                     Game game = null;
-            //       int gameWeek = jsonObjectGame.getInt("gameWeek");
-
-           //         int gameid = jsonObjectGame.getInt("gameId");
-           //         String homeTeam = jsonObjectGame.getString("homeTeam");
-           //         String awayTeam = jsonObjectGame.getString("awayTeam");
-           //         String gameDate = jsonObjectGame.getString("gameDate");
-           //         int gameweek = jsonObjectGame.getInt("gameWeek");
-           //         game = new Game(gameid, homeTeam, awayTeam, gameDate, gameweek);
-
 
 
                     game = new Game(Integer.parseInt(jsonObjectGame.getString("gameId")),jsonObjectGame.getString("homeTeam"), jsonObjectGame.getString("awayTeam"),
