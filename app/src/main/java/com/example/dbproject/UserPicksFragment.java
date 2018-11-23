@@ -23,6 +23,7 @@ import java.util.List;
 public class UserPicksFragment extends Fragment {
     GamePickerDatabase gamePickerDatabase = null;
     Button savePicksButton = null;
+    int userID = 0;
 
 //    GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
@@ -42,6 +43,11 @@ public class UserPicksFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState){
         picksLinearLayoutContainer =  view.findViewById(R.id.gamesLinearLayout);
         savePicksButton = view.findViewById(R.id.savePicksButton);
+
+        //Get UserID
+        MainActivity mainActivity = (MainActivity) getActivity();
+        userID = mainActivity.getUserID();
+
 
         weekSpinner = view.findViewById(R.id.weekSpinner);
         weekSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

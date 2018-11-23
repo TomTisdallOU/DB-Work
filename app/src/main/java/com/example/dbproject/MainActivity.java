@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-
         bottomNavigationView = findViewById(R.id.navigationView);
         if (bottomNavigationView != null){
             Menu menu = bottomNavigationView.getMenu();
@@ -66,6 +65,10 @@ public class MainActivity extends AppCompatActivity {
             });
         }
 
+    }
+
+    public int getUserID(){
+        return user.userID;
     }
 
 
@@ -89,6 +92,8 @@ public class MainActivity extends AppCompatActivity {
     protected void pushFragment(Fragment fragment){
         if (fragment==null)
             return;
+
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         if (fragmentManager != null){

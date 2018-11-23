@@ -35,7 +35,7 @@ public class SignInActivity extends AppCompatActivity {
         signInButton = findViewById(R.id.signInButton);
 
         //userDatabase = new UserDBHandler(this, null, null, 1);
-        String currentDBPath = getDatabasePath("FootballPicker2").getAbsolutePath();
+       // String currentDBPath = getDatabasePath("FootballPicker2").getAbsolutePath();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,6 +62,7 @@ public class SignInActivity extends AppCompatActivity {
                 else
                 {
                     User user = gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue);
+
 
                     if (user != null)
                     //if(gamePickerDatabase.getUserDao().getUser(usernameValue, passwordValue) != null)
