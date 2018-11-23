@@ -31,5 +31,8 @@ public interface GameDao {
     @Query("Select Distinct gameWeek from game")
     List<Integer> getListOfWeeks();
 
+    @Query("Delete from game")
+    void clearGameTable();
+
 
 }

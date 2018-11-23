@@ -26,4 +26,7 @@ public interface PickDao {
 
     @Query("Select * from pick where pick.userid=:userID")
     List<Pick> findGamesForWeek(final int userID);
+
+    @Query("Delete from pick")
+    void clearPickTable();
 }

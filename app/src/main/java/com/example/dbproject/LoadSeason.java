@@ -35,6 +35,10 @@ public class LoadSeason extends AsyncTask {
         String jsonString = sh.makeServiceCall(url);
         gamePickerDatabase = GamePickerDatabase.getInstance(context);
 
+        //TODO -- Test this -- used to wipe out all games to reload them.
+        gamePickerDatabase.getGameDao().clearGameTable();
+        gamePickerDatabase.getPickDao().clearPickTable();
+
         Log.e(TAG, "Response from URL: " + jsonString);
 
         if (jsonString != null) {
