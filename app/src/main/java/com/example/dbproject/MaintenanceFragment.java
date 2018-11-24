@@ -30,6 +30,7 @@ public class MaintenanceFragment extends Fragment {
     Button btnGetWeeklyResults = null;
     Button btnAddRandomUsers = null;
     Button btnMakeRandomPicks = null;
+    Button btnMakeAllRandomPicks = null;
     GamePickerDatabase gamePickerDatabase = null;
 
     @Nullable
@@ -75,6 +76,15 @@ public class MaintenanceFragment extends Fragment {
                 makeRandomPicksforWeek();
             }
         });
+
+        btnMakeAllRandomPicks = view.findViewById(R.id.buttonMakeAllRandomPicks);
+        btnAddDataButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new MakeRandomPicks(getActivity(),0).execute();
+            }
+        });
+
 
     }
 

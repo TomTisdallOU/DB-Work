@@ -37,5 +37,11 @@ public interface GameDao {
     @Query("Update game set winner=:winner where game.gameID=:gameID")
     void updateWinner(int gameID, String winner);
 
+    //TODO not sure I like how I did this, gets the current game week all the way until the thursday game so if this is run
+    //on a tuesday or wednesday the current week would be the one that just ended
+    //so when filling in all weeks up to now in the random picking, it will do all the way through the current week
+    @Query("Select gameWeek from Game where gameDate <:gameDate order by gameDate desc limit 1")
+            int getGameWeekFromDate(String gameDate);
+
 
 }

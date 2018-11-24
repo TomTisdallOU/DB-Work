@@ -4,6 +4,9 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 public class MakeRandomPicks extends AsyncTask {
@@ -26,30 +29,22 @@ public class MakeRandomPicks extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        gamePickerDatabase = GamePickerDatabase.getInstance(context);
+        MakeRandomWeekPicks makeRandomPicks = new MakeRandomWeekPicks(context);
 
-        List<User> users = gamePickerDatabase.getUserDao().getAllUsers();
-        List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(week);
-        Pick pick = new Pick();
-
-        for (User user: users){
-            for (Game game: games){
-
-                pick.setGameID(game.getGameID());
-                pick.setUserID(user.userID);
-            //    pick.setPicksID(0);
-                pick.setConfidence(0);
-                if (Math.random() < 0.5)
-                    pick.setTeamPicked(game.getHomeTeam());
-                else
-                    pick.setTeamPicked(game.getAwayTeam());
-
-                //TODO check for existing pick before trying to insert.
-                gamePickerDatabase.getPickDao().insert(pick);
+        if (week == 0){
+            gamePickerDatabase = GamePickerDatabase.getInstance(context);
+            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            String date = df.format(Calendar.getInstance().getTime());
+            int currentWeek = gamePickerDatabase.getGameDao().getGameWeekFromDate(date);
+            for (int i = 1; i <= currentWeek;i++) {
+                makeRandomPicks.MakeWeekPicks(i);
 
             }
 
+        }else {
+            makeRandomPicks.MakeWeekPicks(week);
         }
+
 
         return null;
     }
