@@ -13,12 +13,17 @@ import android.view.ViewGroup;
 public class UserFragment extends Fragment {
     TabLayout tabLayout = null;
     ViewPager viewPager = null;
+    int userID;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
+
+        Bundle arguments = getArguments();
+        userID = arguments.getInt("UserID");
+
         return inflater.inflate(R.layout.user_fragment, container, false);
     }
 
@@ -30,8 +35,19 @@ public class UserFragment extends Fragment {
         tabLayout = view.findViewById(R.id.userTabLayout);
         viewPager = view.findViewById(R.id.userViewPager);
         ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
-        adapter.AddFragment(new UserPicksFragment(), "Picks");
-        adapter.AddFragment(new UserSettingsFragment(), "User");
+
+        Bundle arguments = new Bundle();
+        arguments.putInt("UserID",  userID);
+
+
+        Fragment fragmentUserPicks = new UserPicksFragment();
+        fragmentUserPicks.setArguments(arguments);
+
+        Fragment fragmentUserSettings = new UserSettingsFragment();
+        fragmentUserSettings.setArguments(arguments);
+
+        adapter.AddFragment(fragmentUserPicks, "Picks");
+        adapter.AddFragment(fragmentUserSettings, "User");
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
     }

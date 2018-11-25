@@ -93,6 +93,10 @@ public class MainActivity extends AppCompatActivity {
         if (fragment==null)
             return;
 
+        Bundle arguments = new Bundle();
+        arguments.putInt("UserID", getUserID());
+        fragment.setArguments(arguments);
+
 
 
         FragmentManager fragmentManager = getSupportFragmentManager();

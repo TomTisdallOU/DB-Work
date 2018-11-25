@@ -34,7 +34,7 @@ public class MakeRandomWeekPicks {
                     pick.setTeamPicked(game.getHomeTeam());
                 else
                     pick.setTeamPicked(game.getAwayTeam());
-                
+
 
                 pickTemp = gamePickerDatabase.getPickDao().getPick(pick.getUserID(), pick.getGameID());
                 if (pickTemp == null) {

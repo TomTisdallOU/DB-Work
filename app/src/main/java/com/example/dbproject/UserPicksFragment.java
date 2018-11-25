@@ -31,11 +31,18 @@ public class UserPicksFragment extends Fragment {
 
     ArrayList<String> listOfWeeks = new ArrayList<>();;
 
+
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
       //  super.onCreateView(inflater, container, savedInstanceState);
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
+
+        if(getArguments() != null){
+            userID = getArguments().getInt("UserID");
+        }
+
         return inflater.inflate(R.layout.user_picks_fragment, container, false);
     }
 
@@ -82,6 +89,7 @@ public class UserPicksFragment extends Fragment {
     {
         int i = 1;
 
+
         for (Game game : gamesForWeekList)
         {
             // Render item layout
@@ -122,6 +130,18 @@ public class UserPicksFragment extends Fragment {
             awayTeamButton.setText(game.getAwayTeam());
             homeTeamButton.setText(game.getHomeTeam());
 
+            //Getting pick if one exists to set the buttonSelected property
+           Pick pickTemp = gamePickerDatabase.getPickDao().getPick(userID, game.getGameID());
+           if (pickTemp != null){
+               if (pickTemp.getTeamPicked() == game.getHomeTeam()){
+                   homeTeamButton.setSelected(true);
+               }
+               else{
+                   awayTeamButton.setSelected(true);
+               }
+           }
+
+
             // Change background color
             //constraintLayout.setBackgroundColor(i % 2 == 0? Color.BLUE: Color.CYAN);
 
@@ -148,12 +168,12 @@ public class UserPicksFragment extends Fragment {
                         Pick pick, pickTemp;
                         if (awayButton.isSelected()){
                             //TODO Not the greatest logic, will always pick home team if no team is selected.
-                            //TODO this currently does an insert, should see if one exists and update instead
+
                             //TODO Pick tied to userid 1 which it should use ID Passed in
-                            pick = new Pick(1, game.getGameID(), game.getAwayTeam(), 1);
+                            pick = new Pick(1, game.getGameID(), game.getAwayTeam(), userID);
 
                         } else {
-                            pick = new Pick( 1, game.getGameID(), game.getHomeTeam(), 1);
+                            pick = new Pick( 1, game.getGameID(), game.getHomeTeam(), userID);
                         }
 
                         pickTemp = gamePickerDatabase.getPickDao().getPick(pick.getUserID(), pick.getGameID());
