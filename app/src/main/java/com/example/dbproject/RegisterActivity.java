@@ -15,7 +15,6 @@ public class RegisterActivity extends AppCompatActivity {
 
     EditText username, password, email = null;
     Button createAccountButton = null;
-//  UserDBHandler userDB = null;
     private GamePickerDatabase gamePickerDatabase;
 
     @Override
@@ -32,7 +31,6 @@ public class RegisterActivity extends AppCompatActivity {
 
 
 
-    //  userDB = new UserDBHandler(this, null, null, 1);
 
 
         createAccountButton.setOnClickListener(new View.OnClickListener() {

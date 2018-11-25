@@ -18,7 +18,6 @@ public class SignInActivity extends AppCompatActivity {
     EditText username, password = null;
     Button signInButton = null;
     TextView signUp = null;
-   // UserDBHandler userDatabase;
     private GamePickerDatabase gamePickerDatabase;
 
 
@@ -34,8 +33,6 @@ public class SignInActivity extends AppCompatActivity {
         signUp = findViewById(R.id.signUpTextView);
         signInButton = findViewById(R.id.signInButton);
 
-        //userDatabase = new UserDBHandler(this, null, null, 1);
-       // String currentDBPath = getDatabasePath("FootballPicker2").getAbsolutePath();
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
