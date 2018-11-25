@@ -78,7 +78,7 @@ public class MaintenanceFragment extends Fragment {
         });
 
         btnMakeAllRandomPicks = view.findViewById(R.id.buttonMakeAllRandomPicks);
-        btnAddDataButton.setOnClickListener(new View.OnClickListener() {
+        btnMakeAllRandomPicks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 new MakeRandomPicks(getActivity(),0).execute();
