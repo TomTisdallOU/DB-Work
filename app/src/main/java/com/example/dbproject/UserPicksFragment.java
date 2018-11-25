@@ -133,11 +133,14 @@ public class UserPicksFragment extends Fragment {
             //Getting pick if one exists to set the buttonSelected property
            Pick pickTemp = gamePickerDatabase.getPickDao().getPick(userID, game.getGameID());
            if (pickTemp != null){
-               if (pickTemp.getTeamPicked() == game.getHomeTeam()){
+
+               if (pickTemp.getTeamPicked().equals((game.getHomeTeam()))){
                    homeTeamButton.setSelected(true);
+                   awayTeamButton.setSelected(false);
                }
                else{
                    awayTeamButton.setSelected(true);
+                   homeTeamButton.setSelected(false);
                }
            }
 
