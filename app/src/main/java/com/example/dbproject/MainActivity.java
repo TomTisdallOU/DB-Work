@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
 
         switch (item.getItemId()){
             case R.id.navigation_person:
-                pushFragment(new UserPicksFragment());
+                pushFragment(new UserFragment());
                 break;
             case R.id.navigation_standings:
                 pushFragment(new StandingsFragment());
