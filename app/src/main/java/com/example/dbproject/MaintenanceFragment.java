@@ -34,6 +34,7 @@ public class MaintenanceFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
+        super.onCreateView(inflater, container, savedInstanceState);
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
         return inflater.inflate(R.layout.maintenance_fragment, container, false);
     }
@@ -41,6 +42,7 @@ public class MaintenanceFragment extends Fragment {
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
+        super.onViewCreated(view, savedInstanceState);
 
         btnAddDataButton = view.findViewById(R.id.buttonAddData);
         btnAddDataButton.setOnClickListener(new View.OnClickListener() {

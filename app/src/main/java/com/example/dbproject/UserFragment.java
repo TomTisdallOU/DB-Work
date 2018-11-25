@@ -18,11 +18,13 @@ public class UserFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         return inflater.inflate(R.layout.user_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         tabLayout = view.findViewById(R.id.userTabLayout);
         viewPager = view.findViewById(R.id.userViewPager);
         ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());
