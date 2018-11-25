@@ -17,6 +17,8 @@ public interface PickDao {
     @Update
     void update (Pick pick);
 
+    @Query("Select * from pick where pick.userID=:userID and pick.gameID =:gameID")
+    Pick getPick(final int userID, final int gameID);
 
     @Delete
     void delete(Pick pick);

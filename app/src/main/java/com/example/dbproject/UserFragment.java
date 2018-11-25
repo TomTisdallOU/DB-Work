@@ -25,6 +25,8 @@ public class UserFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        //TODO - save the state -- I think the new UserPicksFragment messes up the views.
         tabLayout = view.findViewById(R.id.userTabLayout);
         viewPager = view.findViewById(R.id.userViewPager);
         ViewPageAdapter adapter = new ViewPageAdapter(getFragmentManager());

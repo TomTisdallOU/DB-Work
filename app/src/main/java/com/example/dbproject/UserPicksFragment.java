@@ -34,14 +34,14 @@ public class UserPicksFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
-        super.onCreateView(inflater, container, savedInstanceState);
+      //  super.onCreateView(inflater, container, savedInstanceState);
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
         return inflater.inflate(R.layout.user_picks_fragment, container, false);
     }
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState){
-        super.onViewCreated(view, savedInstanceState);
+      //  super.onViewCreated(view, savedInstanceState);
         picksLinearLayoutContainer =  view.findViewById(R.id.gamesLinearLayout);
         savePicksButton = view.findViewById(R.id.savePicksButton);
 
@@ -145,7 +145,7 @@ public class UserPicksFragment extends Fragment {
                     if (child instanceof ConstraintLayout){
                         game = (Game) child.getTag();
                         awayButton = child.findViewById(R.id.awayTeamButton);
-                        Pick pick;
+                        Pick pick, pickTemp;
                         if (awayButton.isSelected()){
                             //TODO Not the greatest logic, will always pick home team if no team is selected.
                             //TODO this currently does an insert, should see if one exists and update instead
@@ -155,9 +155,17 @@ public class UserPicksFragment extends Fragment {
                         } else {
                             pick = new Pick( 1, game.getGameID(), game.getHomeTeam(), 1);
                         }
-                        gamePickerDatabase.getPickDao().insert(pick);
+
+                        pickTemp = gamePickerDatabase.getPickDao().getPick(pick.getUserID(), pick.getGameID());
+                        if (pickTemp == null) {
+                            gamePickerDatabase.getPickDao().insert(pick);
+                        }else{
+                            pick.setPicksID(pickTemp.getPicksID());
+                            gamePickerDatabase.getPickDao().update(pick);
+                        }
                     }
                 }
+                //TODO add Toast
             }
         });
 

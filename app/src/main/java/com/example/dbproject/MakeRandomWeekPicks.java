@@ -21,6 +21,7 @@ public class MakeRandomWeekPicks {
         List<User> users = gamePickerDatabase.getUserDao().getAllUsers();
         List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(week);
         Pick pick = new Pick();
+        Pick pickTemp;
 
         for (User user : users) {
             for (Game game : games) {
@@ -33,9 +34,15 @@ public class MakeRandomWeekPicks {
                     pick.setTeamPicked(game.getHomeTeam());
                 else
                     pick.setTeamPicked(game.getAwayTeam());
+                
 
-                //TODO check for existing pick before trying to insert.
-                gamePickerDatabase.getPickDao().insert(pick);
+                pickTemp = gamePickerDatabase.getPickDao().getPick(pick.getUserID(), pick.getGameID());
+                if (pickTemp == null) {
+                    gamePickerDatabase.getPickDao().insert(pick);
+                }else{
+                    pick.setPicksID(pickTemp.getPicksID());
+                    gamePickerDatabase.getPickDao().update(pick);
+                }
 
             }
         }

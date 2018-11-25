@@ -5,6 +5,8 @@ import android.arch.persistence.room.PrimaryKey;
 
 @Entity
 public class Pick {
+
+    //TODO need Foreign Key to stop ending up with 2 picks for one game
     @PrimaryKey(autoGenerate = true) private int picksID;
     private int userID;
     private int gameID;
@@ -14,7 +16,7 @@ public class Pick {
 
 
     public Pick(){
-        //picksID = -1;
+        picksID = -1;
         userID = -1;
         gameID = -1;
         teamPicked = "";
@@ -57,7 +59,7 @@ public class Pick {
     }
 
     public void setPicksID(int picksID) {
-        this.gameID = picksID;
+        this.picksID = picksID;
     }
 
     public int getConfidence() {
