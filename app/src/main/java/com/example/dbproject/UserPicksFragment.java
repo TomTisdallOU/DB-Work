@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -102,6 +103,8 @@ public class UserPicksFragment extends Fragment {
             TextView homeTeamTextView = constraintLayout.findViewById(R.id.homeTeamTextView);
             TextView dateTextView = constraintLayout.findViewById(R.id.dateTextView);
 
+
+            //TODO change to an image button to show the helmets
             final Button awayTeamButton = constraintLayout.findViewById(R.id.awayTeamButton);
             final Button homeTeamButton = constraintLayout.findViewById(R.id.homeTeamButton);
 
