@@ -22,13 +22,14 @@ public class MakeRandomWeekPicks {
         List<Game> games = gamePickerDatabase.getGameDao().findGamesForWeek(week);
         Pick pick = new Pick();
         Pick pickTemp;
+        int pickId = 1;
 
         for (User user : users) {
             for (Game game : games) {
 
                 pick.setGameID(game.getGameID());
                 pick.setUserID(user.userID);
-                //    pick.setPicksID(0);
+                pick.setPicksID(pickId);
                 pick.setConfidence(0);
                 if (Math.random() < 0.5)
                     pick.setTeamPicked(game.getHomeTeam());
@@ -44,6 +45,7 @@ public class MakeRandomWeekPicks {
                     gamePickerDatabase.getPickDao().update(pick);
                 }
 
+                pickId++;
             }
         }
 
