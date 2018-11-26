@@ -87,7 +87,7 @@ public class UserPicksFragment extends Fragment {
 
     void PopulateActivityWithGames(List<Game> gamesForWeekList)
     {
-        int i = 1;
+        //int i = 1;
 
 
         for (Game game : gamesForWeekList)
@@ -151,7 +151,7 @@ public class UserPicksFragment extends Fragment {
             // Add child in picks constraint layout
             picksLinearLayoutContainer.addView(constraintLayout);
 
-            i++;
+           // i++;
         }
 
         savePicksButton.setVisibility(View.VISIBLE);

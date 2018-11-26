@@ -16,7 +16,7 @@ public class Pick {
 
 
     public Pick(){
-        picksID = -1;
+      //  picksID = -1;
         userID = -1;
         gameID = -1;
         teamPicked = "";
