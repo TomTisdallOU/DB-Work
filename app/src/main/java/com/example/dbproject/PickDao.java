@@ -34,12 +34,12 @@ public interface PickDao {
     void clearPickTable();
 
 
-    @Query("Select user.userID as userId, user.userName, count(teamPicked) as totalPoints from pick left join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
+    @Query("Select user.userID as userId, user.userName, count(teamPicked) as totalPoints from pick  join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
             "                                   left join user on user.userID = pick.userID  " +
             "                                   where gameWeek =:week group by  user.userName order by count(teamPicked) desc ")
     List<UserResults> getWeeklyResults(int week);
 
-    @Query("Select user.userID as userId, user.userName, count(teamPicked) as totalPoints from pick left join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
+    @Query("Select user.userID as userId, user.userName, count(teamPicked) as totalPoints from pick  join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
             "                                   left join user on user.userID = pick.userID  " +
             "                                   group by  user.userName order by count(teamPicked) desc ")
     List<UserResults> getOverallResults();
