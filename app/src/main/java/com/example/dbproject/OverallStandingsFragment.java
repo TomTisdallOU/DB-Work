@@ -49,8 +49,13 @@ public class OverallStandingsFragment extends Fragment {
 
 
         List<UserResults> standingsResults = gamePickerDatabase.getPickDao().getOverallResults();
-        arrayAdapter = new ArrayAdapter<UserResults>(getContext(), android.R.layout.simple_list_item_2, standingsResults);
-        overallStandingsView.setAdapter(arrayAdapter);
+        ArrayList<UserResults> standings2 = (ArrayList) standingsResults;
+
+        //arrayAdapter = new ArrayAdapter<UserResults>(getContext(), android.R.layout.simple_list_item_2, standingsResults);
+
+
+        StandingsAdapter standingsAdapter = new StandingsAdapter(getContext(), standings2);
+        overallStandingsView.setAdapter(standingsAdapter);
 
 
     }

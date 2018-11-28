@@ -4,7 +4,7 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/personNameTextView"
+        android:id="@+id/sr_personNameTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
@@ -13,7 +13,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/pointsTextView"
+        android:id="@+id/sr_pointsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
