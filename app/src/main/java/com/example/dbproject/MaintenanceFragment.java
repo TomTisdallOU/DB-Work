@@ -17,9 +17,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
 
 
 public class MaintenanceFragment extends Fragment {
@@ -30,12 +33,18 @@ public class MaintenanceFragment extends Fragment {
     Button btnMakeRandomPicks = null;
     Button btnMakeAllRandomPicks = null;
     GamePickerDatabase gamePickerDatabase = null;
+    MobileServiceClient mclient = null;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreateView(inflater, container, savedInstanceState);
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
+        AzureServiceAdapter.Initialize(getActivity());
+        mclient = AzureServiceAdapter.getInstance().getClient();
+
+
+
         return inflater.inflate(R.layout.maintenance_fragment, container, false);
     }
 
