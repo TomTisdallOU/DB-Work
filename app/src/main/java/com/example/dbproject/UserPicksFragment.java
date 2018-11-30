@@ -17,6 +17,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 //import java.lang.reflect.Field;
+import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
+import com.microsoft.windowsazure.mobileservices.http.ServiceFilterResponse;
+import com.microsoft.windowsazure.mobileservices.table.MobileServiceTable;
+import com.microsoft.windowsazure.mobileservices.table.TableOperationCallback;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,6 +30,7 @@ public class UserPicksFragment extends Fragment {
     GamePickerDatabase gamePickerDatabase = null;
     Button savePicksButton = null;
     int userID = 0;
+    MobileServiceClient mclient = null;
 
 //    GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
@@ -52,6 +58,25 @@ public class UserPicksFragment extends Fragment {
       //  super.onViewCreated(view, savedInstanceState);
         picksLinearLayoutContainer =  view.findViewById(R.id.gamesLinearLayout);
         savePicksButton = view.findViewById(R.id.savePicksButton);
+
+
+      //  AzureServiceAdapter.Initialize(getActivity());
+        mclient = AzureServiceAdapter.getInstance().getClient();
+        AzurePicks azurePicks = new AzurePicks("tomtisdall", 1);
+     //   MobileServiceTable<AzurePicks> testing = mclient.getTable(AzurePicks.class);
+      //  testing.insert(azurePicks);
+
+        mclient.getTable(AzurePicks.class).insert(azurePicks, new TableOperationCallback<AzurePicks>() {
+                    @Override
+                    public void onCompleted(AzurePicks entity, Exception exception, ServiceFilterResponse response) {
+                        if (exception == null) {
+                            // Insert succeeded
+                        } else {
+                            // Insert failed
+                        }
+                    }
+                });
+
 
         //Get UserID
         MainActivity mainActivity = (MainActivity) getActivity();
