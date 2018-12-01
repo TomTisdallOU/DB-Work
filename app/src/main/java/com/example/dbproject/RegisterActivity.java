@@ -29,10 +29,6 @@ public class RegisterActivity extends AppCompatActivity {
         gamePickerDatabase = GamePickerDatabase.getInstance(RegisterActivity.this);
 
 
-
-
-
-
         createAccountButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

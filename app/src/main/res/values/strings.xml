@@ -3,4 +3,7 @@
     <string name="DB_Name">FootballPicker</string>
     <string name="User_Table_Name">User</string>
     <string name="Game_Table_Name">Game</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

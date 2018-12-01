@@ -1,5 +1,6 @@
 package com.example.dbproject;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,8 +11,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class UserFragment extends Fragment {
+public class UserFragment extends Fragment  {
     TabLayout tabLayout = null;
+
+
+
     ViewPager viewPager = null;
     int userID;
 
@@ -43,7 +47,7 @@ public class UserFragment extends Fragment {
         Fragment fragmentUserPicks = new UserPicksFragment();
         fragmentUserPicks.setArguments(arguments);
 
-        Fragment fragmentUserSettings = new UserSettingsFragment();
+        Fragment fragmentUserSettings = new UserSettings();
         fragmentUserSettings.setArguments(arguments);
 
         adapter.AddFragment(fragmentUserPicks, "Picks");
