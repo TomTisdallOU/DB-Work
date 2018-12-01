@@ -16,9 +16,10 @@ public class AzurePicks {
     private int GameID;
     private String TeamPicked;
 
-    public AzurePicks(String userName, int gameID) {
+    public AzurePicks(String userName, int gameID, String teamPicked) {
         UserName = userName;
         GameID = gameID;
+        TeamPicked = teamPicked;
     }
 
 

@@ -62,7 +62,7 @@ public class UserPicksFragment extends Fragment {
 
       //  AzureServiceAdapter.Initialize(getActivity());
         mclient = AzureServiceAdapter.getInstance().getClient();
-        AzurePicks azurePicks = new AzurePicks("tomtisdall", 1);
+        AzurePicks azurePicks = new AzurePicks("tomtisdall", 1, "teampicked");
      //   MobileServiceTable<AzurePicks> testing = mclient.getTable(AzurePicks.class);
       //  testing.insert(azurePicks);
 
