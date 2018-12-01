@@ -7,45 +7,46 @@ import com.microsoft.windowsazure.mobileservices.table.DateTimeOffset;
 import java.sql.Date;
 
 public class AzurePicks {
-    private int id;
-    private DateTimeOffset createdAt;
-    private DateTimeOffset updatedAt;
+    private String id;
+  //  private DateTimeOffset createdAt;
+  //  private DateTimeOffset updatedAt;
     private String version;
  //   private Boolean deleted;
     private String UserName;
-    private int GameID;
+    private String GameID;
     private String TeamPicked;
 
-    public AzurePicks(String userName, int gameID, String teamPicked) {
+    public AzurePicks(String userName, String gameID, String teamPicked) {
+        id = "";
         UserName = userName;
         GameID = gameID;
         TeamPicked = teamPicked;
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
-    public DateTimeOffset getCreatedAt() {
-        return createdAt;
-    }
+//    public DateTimeOffset getCreatedAt() {
+ //       return createdAt;
+ //   }
 
-    public void setCreatedAt(DateTimeOffset createdAt) {
-        this.createdAt = createdAt;
-    }
+ //   public void setCreatedAt(DateTimeOffset createdAt) {
+ //       this.createdAt = createdAt;
+ //   }
 
-    public DateTimeOffset getUpdatedAt() {
-        return updatedAt;
-    }
+//    public DateTimeOffset getUpdatedAt() {
+//        return updatedAt;
+ //   }
 
-    public void setUpdatedAt(DateTimeOffset updatedAt) {
-        this.updatedAt = updatedAt;
-    }
+//    public void setUpdatedAt(DateTimeOffset updatedAt) {
+//        this.updatedAt = updatedAt;
+//    }
 
     public String getVersion() {
         return version;
@@ -64,11 +65,11 @@ public class AzurePicks {
         UserName = userName;
     }
 
-    public int getGameID() {
+    public String getGameID() {
         return GameID;
     }
 
-    public void setGameID(int gameID) {
+    public void setGameID(String gameID) {
         GameID = gameID;
     }
 

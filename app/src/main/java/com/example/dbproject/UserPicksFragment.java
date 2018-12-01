@@ -62,11 +62,11 @@ public class UserPicksFragment extends Fragment {
 
       //  AzureServiceAdapter.Initialize(getActivity());
         mclient = AzureServiceAdapter.getInstance().getClient();
-        AzurePicks azurePicks = new AzurePicks("tomtisdall", 1, "teampicked");
-     //   MobileServiceTable<AzurePicks> testing = mclient.getTable(AzurePicks.class);
+        AzurePicks azurePicks = new AzurePicks("tomtisdall", "1", "teampicked");
+        MobileServiceTable<AzurePicks> azurePicksTable = mclient.getTable(AzurePicks.class);
       //  testing.insert(azurePicks);
 
-        mclient.getTable(AzurePicks.class).insert(azurePicks, new TableOperationCallback<AzurePicks>() {
+        azurePicksTable.insert(azurePicks, new TableOperationCallback<AzurePicks>() {
                     @Override
                     public void onCompleted(AzurePicks entity, Exception exception, ServiceFilterResponse response) {
                         if (exception == null) {

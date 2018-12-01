@@ -40,8 +40,7 @@ public class MaintenanceFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState){
         super.onCreateView(inflater, container, savedInstanceState);
         gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
-        AzureServiceAdapter.Initialize(getActivity());
-        mclient = AzureServiceAdapter.getInstance().getClient();
+
 
 
 

@@ -6,7 +6,7 @@ import com.microsoft.windowsazure.mobileservices.*;
 import java.net.MalformedURLException;
 
 public class AzureServiceAdapter {
-    private String mMobileBackendUrl = "https://pickernbtt.azurewebsites.net";
+    private String mMobileBackendUrl = "https://pickemnbtt.azurewebsites.net";
     private Context mContext;
     private MobileServiceClient mClient;
     private static AzureServiceAdapter mInstance = null;

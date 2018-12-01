@@ -26,6 +26,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        AzureServiceAdapter.Initialize(this);
+      //  mclient = AzureServiceAdapter.getInstance().getClient();
+
+
 
         //Get User
         gamePickerDatabase = GamePickerDatabase.getInstance(this);
