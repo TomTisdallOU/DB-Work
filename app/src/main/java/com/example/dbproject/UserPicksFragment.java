@@ -2,6 +2,7 @@ package com.example.dbproject;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.app.Fragment;
@@ -30,12 +31,14 @@ public class UserPicksFragment extends Fragment {
     Button savePicksButton = null;
     int userID = 0;
     MobileServiceClient mclient = null;
-
-//    GameDBHandler gameDBHandler = null;
+    AzurePicks azurePicks = null;
+    MobileServiceTable<AzurePicks> azurePicksTable = null;
+    //    GameDBHandler gameDBHandler = null;
     Spinner weekSpinner = null;
     LinearLayout picksLinearLayoutContainer = null;
 
-    ArrayList<String> listOfWeeks = new ArrayList<>();;
+    ArrayList<String> listOfWeeks = new ArrayList<>();
+    User user = null;
 
 
 
@@ -48,6 +51,7 @@ public class UserPicksFragment extends Fragment {
         if(getArguments() != null){
             userID = getArguments().getInt("UserID");
         }
+        user = gamePickerDatabase.getUserDao().getUser(userID);
 
         return inflater.inflate(R.layout.user_picks_fragment, container, false);
     }
@@ -61,20 +65,7 @@ public class UserPicksFragment extends Fragment {
         //TODO Move to save picks button -- and into random creation of picks.
       //  AzureServiceAdapter.Initialize(getActivity());
         mclient = AzureServiceAdapter.getInstance().getClient();
-        AzurePicks azurePicks = new AzurePicks("tomtisdall", "1", "teampicked");
-        MobileServiceTable<AzurePicks> azurePicksTable = mclient.getTable(AzurePicks.class);
-      //  testing.insert(azurePicks);
-
-        azurePicksTable.insert(azurePicks, new TableOperationCallback<AzurePicks>() {
-                    @Override
-                    public void onCompleted(AzurePicks entity, Exception exception, ServiceFilterResponse response) {
-                        if (exception == null) {
-                            // Insert succeeded
-                        } else {
-                            // Insert failed
-                        }
-                    }
-                });
+        azurePicksTable = mclient.getTable(AzurePicks.class);
 
 
         //Get UserID
@@ -186,6 +177,9 @@ public class UserPicksFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 gamePickerDatabase = GamePickerDatabase.getInstance(getActivity());
+                azurePicks = null;
+
+
                 Button awayButton = null;
                 Game game = null;
                 final int count = picksLinearLayoutContainer.getChildCount();
@@ -209,6 +203,15 @@ public class UserPicksFragment extends Fragment {
                         pickTemp = gamePickerDatabase.getPickDao().getPick(pick.getUserID(), pick.getGameID());
                         if (pickTemp == null) {
                             gamePickerDatabase.getPickDao().insert(pick);
+                            String temp = Integer.toString(pick.getGameID());
+                            azurePicks = new AzurePicks(user.getUserName(), Integer.toString(pick.getGameID()), pick.getTeamPicked());
+                            //azurePicks.setGameID(temp);
+                            //azurePicks.setTeamPicked(pick.getTeamPicked());
+                            //azurePicks.setUserName(user.getUserName());
+                            addAzureData(true,azurePicks);
+
+
+
                         }else{
                             pick.setPicksID(pickTemp.getPicksID());
                             gamePickerDatabase.getPickDao().update(pick);
@@ -222,6 +225,24 @@ public class UserPicksFragment extends Fragment {
 
 
     }
+
+    private void addAzureData(boolean adding, AzurePicks azurePicks) {
+        if (adding) {
+            azurePicksTable.insert(azurePicks, new TableOperationCallback<AzurePicks>() {
+                @Override
+                public void onCompleted(AzurePicks entity, Exception exception, ServiceFilterResponse response) {
+                    if (exception == null) {
+                        // Insert succeeded
+                    } else {
+                        // Insert failed
+                    }
+                }
+            });
+        } else {
+            //TODO Get Azure entry to then update it.
+        }
+    }
+
 
 private class LoadSpinner2 extends AsyncTask<Void, Void, Void> {
 
