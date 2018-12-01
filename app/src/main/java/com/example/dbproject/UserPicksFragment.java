@@ -59,7 +59,7 @@ public class UserPicksFragment extends Fragment {
         picksLinearLayoutContainer =  view.findViewById(R.id.gamesLinearLayout);
         savePicksButton = view.findViewById(R.id.savePicksButton);
 
-
+        //TODO Move to save picks button -- and into random creation of picks.
       //  AzureServiceAdapter.Initialize(getActivity());
         mclient = AzureServiceAdapter.getInstance().getClient();
         AzurePicks azurePicks = new AzurePicks("tomtisdall", "1", "teampicked");
