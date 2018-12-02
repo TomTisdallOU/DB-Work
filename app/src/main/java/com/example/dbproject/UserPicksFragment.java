@@ -33,7 +33,7 @@ public class UserPicksFragment extends Fragment {
     MobileServiceClient mclient = null;
     AzurePicks azurePicks = null;
     MobileServiceTable<AzurePicks> azurePicksTable = null;
-    //    GameDBHandler gameDBHandler = null;
+
     Spinner weekSpinner = null;
     LinearLayout picksLinearLayoutContainer = null;
 
@@ -204,9 +204,6 @@ public class UserPicksFragment extends Fragment {
                         if (pickTemp == null) {
                             gamePickerDatabase.getPickDao().insert(pick);
                             azurePicks = new AzurePicks(user.getUserName(), Integer.toString(pick.getGameID()), pick.getTeamPicked());
-                            //azurePicks.setGameID(temp);
-                            //azurePicks.setTeamPicked(pick.getTeamPicked());
-                            //azurePicks.setUserName(user.getUserName());
                             addAzureData(true,azurePicks);
 
 

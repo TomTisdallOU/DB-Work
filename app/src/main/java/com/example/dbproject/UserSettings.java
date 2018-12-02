@@ -203,32 +203,19 @@ public class UserSettings extends Fragment {
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl("file:///android_asset/index.html");
 
-        //WebViewBridge bridge = new WebViewBridge(webView);
+        final ChartHandler chartHandler = new ChartHandler(webView);
 
-       final ChartHandler chartHandler = new ChartHandler(webView);
-
-       // WebViewBridge bridge = new WebViewBridge(webView);
         webView.addJavascriptInterface(chartHandler, "Android");
         webView.setWebViewClient(new WebViewClient() {
                                      public void onPageFinished(WebView view, String url) {
-                                       //  chartHandler.AddData("Week 3", 5);
-                                      //   chartHandler.AddData("Week 4", 8);
-                                    //     webView.loadUrl("javascript:addDataToChart(week 3, 9  )");
-                                    //     webView.loadUrl("javascript:addDataToChart(week 4, 3  )");
-
 
                                          for (UserSeasonResults result : userResults) {
                                              chartHandler.AddData("W" + result.getGameWeek(), result.getTotalPoints());
-                                            // webView.loadUrl("javascript:addDataToChart(Week " + result.getTotalPoints() + "," + result.getGameWeek() + ")");
+
                                          }
                                      }
                                  }
         );
-
-       // webView.addJavascriptInterface(chartHandler, "Android");
-         //   chartHandler.AddData(result.getTotalPoints(), result.getGameWeek() );
-         //   webView.loadUrl("javascript:addDataToChart(Week " + result.getTotalPoints() + "," + result.getGameWeek() + ")");
-
 
     }
 }

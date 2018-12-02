@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
 
@@ -32,6 +33,7 @@ public class MaintenanceFragment extends Fragment {
     Button btnAddRandomUsers = null;
     Button btnMakeRandomPicks = null;
     Button btnMakeAllRandomPicks = null;
+    Button btnClearDB = null;
     GamePickerDatabase gamePickerDatabase = null;
     MobileServiceClient mclient = null;
 
@@ -89,10 +91,23 @@ public class MaintenanceFragment extends Fragment {
         btnMakeAllRandomPicks.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new MakeRandomPicks(getActivity(),0).execute();
+                Object[] object = new Object[1];
+                new MakeRandomPicks(getActivity(),0).doInBackground(object);
+
+
+
             }
         });
 
+        btnClearDB = view.findViewById(R.id.buttonClearDatabase);
+        btnClearDB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                gamePickerDatabase.getUserDao().deleteAllUsers();
+                gamePickerDatabase.getPickDao().deleteAllPicks();
+                Toast.makeText(getContext(), "Cleared Users and Picks", Toast.LENGTH_LONG).show();
+            }
+        });
 
     }
 

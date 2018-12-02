@@ -29,7 +29,7 @@ public class MakeRandomPicks extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
-        MakeRandomWeekPicks makeRandomPicks = new MakeRandomWeekPicks(context);
+        MakeRandomWeekPicks makeRandomWeekPicks = new MakeRandomWeekPicks(context);
 
         if (week == 0){
             gamePickerDatabase = GamePickerDatabase.getInstance(context);
@@ -37,12 +37,12 @@ public class MakeRandomPicks extends AsyncTask {
             String date = df.format(Calendar.getInstance().getTime());
             int currentWeek = gamePickerDatabase.getGameDao().getGameWeekFromDate(date);
             for (int i = 1; i <= currentWeek;i++) {
-                makeRandomPicks.MakeWeekPicks(i);
+                makeRandomWeekPicks.MakeWeekPicks(i);
 
             }
 
         }else {
-            makeRandomPicks.MakeWeekPicks(week);
+            makeRandomWeekPicks.MakeWeekPicks(week);
         }
 
 

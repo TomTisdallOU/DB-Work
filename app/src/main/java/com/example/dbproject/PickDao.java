@@ -24,6 +24,9 @@ public interface PickDao {
     @Delete
     void delete(Pick pick);
 
+    @Query("delete from pick")
+    void deleteAllPicks();
+
     @Query("Select * from pick")
     List<Pick> getAllPicks();
 
