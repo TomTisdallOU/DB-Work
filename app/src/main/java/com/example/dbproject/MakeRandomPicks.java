@@ -33,7 +33,7 @@ public class MakeRandomPicks extends AsyncTask {
 
         if (week == 0){
             gamePickerDatabase = GamePickerDatabase.getInstance(context);
-            DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            DateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String date = df.format(Calendar.getInstance().getTime());
             int currentWeek = gamePickerDatabase.getGameDao().getGameWeekFromDate(date);
             for (int i = 1; i <= currentWeek;i++) {

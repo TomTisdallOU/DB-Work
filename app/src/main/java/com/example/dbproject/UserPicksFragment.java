@@ -203,7 +203,6 @@ public class UserPicksFragment extends Fragment {
                         pickTemp = gamePickerDatabase.getPickDao().getPick(pick.getUserID(), pick.getGameID());
                         if (pickTemp == null) {
                             gamePickerDatabase.getPickDao().insert(pick);
-                            String temp = Integer.toString(pick.getGameID());
                             azurePicks = new AzurePicks(user.getUserName(), Integer.toString(pick.getGameID()), pick.getTeamPicked());
                             //azurePicks.setGameID(temp);
                             //azurePicks.setTeamPicked(pick.getTeamPicked());

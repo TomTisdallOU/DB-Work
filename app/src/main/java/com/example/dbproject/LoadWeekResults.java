@@ -49,7 +49,7 @@ public class LoadWeekResults extends AsyncTask {
                 for (int i = 0; i < jsonArraySchedule.length(); i++) {
                     JSONObject jsonObjectGame = jsonArraySchedule.getJSONObject(i);
 
-                    if (jsonObjectGame.getInt("gameWeek") == week) {
+                    if (jsonObjectGame.getInt("gameWeek") <= week) {
 
                         int gameID = jsonObjectGame.getInt("gameId");
                         String gameWinner = jsonObjectGame.getString("winner");

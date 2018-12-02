@@ -26,7 +26,7 @@ public class MakeRandomWeekPicks {
 
         for (User user : users) {
             for (Game game : games) {
-
+                pick.setPicksID(0);
                 pick.setGameID(game.getGameID());
                 pick.setUserID(user.userID);
               //  pick.setPicksID(pickId);

@@ -30,4 +30,11 @@ public interface UserDao {
     @Query("Select * from user where user.userName=:userName and user.userPassword=:userPassword")
     User getUser(final String userName, String userPassword);
 
+
+    @Query("Select gameWeek, count(teamPicked) as totalPoints from pick join game on pick.gameID = game.gameID and pick.teamPicked = game.winner " +
+                " where pick.userId =:userID  group by gameWeek order by gameWeek ")
+    List<UserSeasonResults> getUserSeasonResults(int userID);
+
+
+
 }

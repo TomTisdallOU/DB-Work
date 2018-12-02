@@ -10,11 +10,15 @@ import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 /**
@@ -44,6 +48,7 @@ public class UserSettings extends Fragment {
     EditText email = null;
     EditText phoneNumber = null;
     boolean canEditUserInfo = false;
+    WebView webview = null;
 
     private OnFragmentInteractionListener mListener;
     GamePickerDatabase gamePickerDatabase = null;
@@ -95,12 +100,19 @@ public class UserSettings extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        webview = view.findViewById(R.id.webView);
+
         lockButton = view.findViewById(R.id.imageLock);
         avatar = view.findViewById(R.id.imageViewAvatar);
         name = view.findViewById(R.id.editName);
         password = view.findViewById(R.id.editPassword);
         email = view.findViewById(R.id.editEmail);
         phoneNumber = view.findViewById(R.id.editPhoneNumber);
+
+
+
+        loadChartData(webview, gamePickerDatabase);
+
 
         user = gamePickerDatabase.getUserDao().getUser(userID);
         if (user != null){
@@ -182,5 +194,41 @@ public class UserSettings extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+
+    public void loadChartData(final WebView webView, GamePickerDatabase gamePickerDatabase){
+        final List<UserSeasonResults> userResults = gamePickerDatabase.getUserDao().getUserSeasonResults(userID);
+
+        webView.getSettings().setJavaScriptEnabled(true);
+        webView.loadUrl("file:///android_asset/index.html");
+
+        //WebViewBridge bridge = new WebViewBridge(webView);
+
+       final ChartHandler chartHandler = new ChartHandler(webView);
+
+       // WebViewBridge bridge = new WebViewBridge(webView);
+        webView.addJavascriptInterface(chartHandler, "Android");
+        webView.setWebViewClient(new WebViewClient() {
+                                     public void onPageFinished(WebView view, String url) {
+                                       //  chartHandler.AddData("Week 3", 5);
+                                      //   chartHandler.AddData("Week 4", 8);
+                                    //     webView.loadUrl("javascript:addDataToChart(week 3, 9  )");
+                                    //     webView.loadUrl("javascript:addDataToChart(week 4, 3  )");
+
+
+                                         for (UserSeasonResults result : userResults) {
+                                             chartHandler.AddData("W" + result.getGameWeek(), result.getTotalPoints());
+                                            // webView.loadUrl("javascript:addDataToChart(Week " + result.getTotalPoints() + "," + result.getGameWeek() + ")");
+                                         }
+                                     }
+                                 }
+        );
+
+       // webView.addJavascriptInterface(chartHandler, "Android");
+         //   chartHandler.AddData(result.getTotalPoints(), result.getGameWeek() );
+         //   webView.loadUrl("javascript:addDataToChart(Week " + result.getTotalPoints() + "," + result.getGameWeek() + ")");
+
+
     }
 }
