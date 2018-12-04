@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity implements UserSettings.OnFr
         bottomNavigationView = findViewById(R.id.navigationView);
         if (bottomNavigationView != null){
             Menu menu = bottomNavigationView.getMenu();
-            selectFragment(menu.getItem(2));
+            selectFragment(menu.getItem(0));
 
             bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override

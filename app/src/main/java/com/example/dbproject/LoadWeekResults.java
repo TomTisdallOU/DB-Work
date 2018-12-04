@@ -32,11 +32,14 @@ public class LoadWeekResults extends AsyncTask {
 
     @Override
     protected Object doInBackground(Object[] objects) {
+        countOfGames = 0;
 
         HttpHandler sh = new HttpHandler();
         String url = "https://www.fantasyfootballnerd.com/service/schedule/json/pr8xb92kbh8m/";
         String jsonString = sh.makeServiceCall(url);
         gamePickerDatabase = GamePickerDatabase.getInstance(context);
+        String winner = "";
+        String gameWinner = "";
 
         Log.e(TAG, "Response from URL: " + jsonString);
 
@@ -52,10 +55,15 @@ public class LoadWeekResults extends AsyncTask {
                     if (jsonObjectGame.getInt("gameWeek") <= week) {
 
                         int gameID = jsonObjectGame.getInt("gameId");
-                        String gameWinner = jsonObjectGame.getString("winner");
+                        gameWinner = jsonObjectGame.getString("winner");
 
-                        gamePickerDatabase.getGameDao().updateWinner(gameID, gameWinner);
-                        countOfGames++;
+                        winner = gamePickerDatabase.getGameDao().getGameWinner(gameID);
+                        if (winner == null) {
+
+
+                            gamePickerDatabase.getGameDao().updateWinner(gameID, gameWinner);
+                            countOfGames++;
+                        }
                     }
 
                     //TODO convert date string to a date???

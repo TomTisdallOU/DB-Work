@@ -1,5 +1,7 @@
 package com.example.dbproject;
 
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.ContactsContract;
@@ -15,6 +17,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 //import java.lang.reflect.Field;
 import com.microsoft.windowsazure.mobileservices.MobileServiceClient;
@@ -96,6 +99,9 @@ public class UserPicksFragment extends Fragment {
 
         new LoadSpinner2().execute();
 
+
+
+
     }
 
 
@@ -152,13 +158,40 @@ public class UserPicksFragment extends Fragment {
            Pick pickTemp = gamePickerDatabase.getPickDao().getPick(userID, game.getGameID());
            if (pickTemp != null){
 
-               if (pickTemp.getTeamPicked().equals((game.getHomeTeam()))){
-                   homeTeamButton.setSelected(true);
-                   awayTeamButton.setSelected(false);
-               }
-               else{
-                   awayTeamButton.setSelected(true);
-                   homeTeamButton.setSelected(false);
+               String winner = gamePickerDatabase.getGameDao().getGameWinner(game.getGameID());
+               if (winner != null){
+                   homeTeamButton.setEnabled(false);
+                   awayTeamButton.setEnabled(false);
+                   if (pickTemp.getTeamPicked().equals(winner)){
+                       if (game.getHomeTeam().equals(winner)){
+                           homeTeamButton.setTextColor(Color.GREEN);
+                           homeTeamButton.setTypeface(null, Typeface.BOLD);
+                       }
+                       else{
+                           awayTeamButton.setTextColor(Color.GREEN);
+                           awayTeamButton.setTypeface(null, Typeface.BOLD);
+
+                       }
+                   }
+                   else if (pickTemp.getTeamPicked().equals(game.getHomeTeam())){
+                       homeTeamButton.setTextColor(Color.RED);
+                       homeTeamButton.setTypeface(null, Typeface.BOLD);
+                   } else {
+                       awayTeamButton.setTextColor(Color.RED);
+                       awayTeamButton.setTypeface(null, Typeface.BOLD);
+                   }
+
+
+               }else {
+
+
+                   if (pickTemp.getTeamPicked().equals((game.getHomeTeam()))) {
+                       homeTeamButton.setSelected(true);
+                       awayTeamButton.setSelected(false);
+                   } else {
+                       awayTeamButton.setSelected(true);
+                       homeTeamButton.setSelected(false);
+                   }
                }
            }
 
@@ -214,7 +247,7 @@ public class UserPicksFragment extends Fragment {
                         }
                     }
                 }
-                //TODO add Toast
+                Toast.makeText(getContext(), "Your picks were saved!", Toast.LENGTH_LONG).show();
             }
         });
 
